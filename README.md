@@ -1,3 +1,25 @@
+# FridgeApplication
+A complete tool for building and maintaining hardware configurations in the context of cryogenic setups.
+
+# Getting started
+Pre:-requisities:
+- Node 14.17.5 or higher
+- Git
+- (Adviced) Visual studio code
+
+To execute the application, navigate to the project root and run:
+```bash
+cd fridge_app
+npm install  # Optional if npm is not installed yet.
+npm start
+```
+This creates a live image of the application.
+In order to update changes to the code, simply run `rs` in the terminal.
+
+
+# Project goals
+1. Easy to use documentation tool for physical hardware implementations. Supporting version control and visualization.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
