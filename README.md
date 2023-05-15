@@ -11,6 +11,11 @@ To execute the application, navigate to the project root and run:
 ```bash
 cd fridge_app
 npm install  # Optional if npm is not installed yet.
+# Dependencies:
+npm install @projectstorm/react-canvas-core
+npm install @projectstorm/react-diagrams
+npm install @emotion/styled
+# Start application (will run in localhost)
 npm start
 ```
 This creates a live image of the application.
