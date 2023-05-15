@@ -3,9 +3,14 @@ import './App.css';
 import createEngine, {
   DefaultDiagramState,
   DefaultNodeModel,
-  DiagramModel
+  DiagramModel,
+  PortModelAlignment,
 } from '@projectstorm/react-diagrams';
-
+// import the custom models
+import { DiamondNodeModel } from './CustomNode/DiamondNodeModel';
+import { DiamondNodeFactory } from './CustomNode/DiamondNodeFactory';
+import { SimplePortFactory } from './CustomNode/SimplePortFactory';
+import { DiamondPortModel } from './CustomNode/DiamondPortModel';
 import {
   CanvasWidget
 } from '@projectstorm/react-canvas-core';
@@ -15,6 +20,10 @@ function App() {
 
   //1) setup the diagram engine
   var engine = createEngine();
+
+  // register other factories as well
+  engine.getPortFactories().registerFactory(new SimplePortFactory('diamond', (config) => new DiamondPortModel(PortModelAlignment.LEFT)));
+  engine.getNodeFactories().registerFactory(new DiamondNodeFactory());
 
   // ############################################ MAGIC HAPPENS HERE
   const state = engine.getStateMachine().getCurrentState();
@@ -44,8 +53,12 @@ function App() {
   node3.addOutPort('Out');
   node3.setPosition(100, 200);
 
+  //3-E) create orphaned diamond node
+  var node4 = new DiamondNodeModel();
+  node4.setPosition(200, 200);
+
   //4) add the models to the root graph
-  model.addAll(node1, node2, node3, link1);
+  model.addAll(node1, node2, node3, node4, link1);
 
   //5) load model into engine
   engine.setModel(model);
