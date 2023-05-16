@@ -60,7 +60,7 @@ export class DiamondNodeWidget extends React.Component {
         `
 					}}
 				/>
-				<PortWidget
+				{/* <PortWidget
 					style={{
 						top: this.props.size / 2 - 8,
 						left: -8,
@@ -70,7 +70,7 @@ export class DiamondNodeWidget extends React.Component {
 					engine={this.props.engine}
 				>
 					<S.Port />
-				</PortWidget>
+				</PortWidget> */}
 				<PortWidget
 					style={{
 						left: this.props.size / 2 - 8,
