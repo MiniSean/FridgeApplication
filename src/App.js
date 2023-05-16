@@ -14,7 +14,8 @@ import { DiamondPortModel } from './CustomNode/DiamondPortModel';
 import {
   CanvasWidget
 } from '@projectstorm/react-canvas-core';
-import DemoCanvasWidget from "./DemoCanvasWidget";
+import DemoCanvasWidget from "./Widgets/DemoCanvasWidget";
+import { CloneSelected } from "./InteractFunctionality/CloneSelect";
 
 function App() {
 
@@ -68,11 +69,13 @@ function App() {
   engine.setModel(model);
 
   //6) render the diagram!
-  return (
-    <DemoCanvasWidget>
-      <CanvasWidget engine={engine} />
-    </DemoCanvasWidget>
-  );
+  return <CloneSelected engine={engine} model={model} />;
+
+  // return (
+  //   <DemoCanvasWidget>
+  //     <CanvasWidget engine={engine} />
+  //   </DemoCanvasWidget>
+  // );
 
   // return (
   //   <div className="App">

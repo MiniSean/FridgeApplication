@@ -48,7 +48,7 @@ S.Expand = css`
     }
 `;
 
-class DemoCanvasWidget extends React.Component {
+export class DemoCanvasWidget extends React.Component {
 	render() {
 		return (
 			<>
@@ -69,5 +69,3 @@ DemoCanvasWidget.propTypes = {
 	background: PropTypes.string,
 	children: PropTypes.node,
 };
-
-export default DemoCanvasWidget;
