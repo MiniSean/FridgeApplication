@@ -35,6 +35,7 @@ function App() {
 
   //2) setup the diagram model
   var model = new DiagramModel();
+	model.setGridSize(25);
 
   //3-A) create a default node
   var node1 = new DefaultNodeModel('UHFQC', 'rgb(0,192,255)');
