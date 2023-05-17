@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { TrayWidget } from './TrayWidget';
 import { CloneSelected } from "../../InteractFunctionality/CloneSelect";
 import { CanvasDragToggle } from '../../InteractFunctionality/EnableDrag';
+import { Serializer } from '../../InteractFunctionality/SerializeDiagram';
 import { TrayItemWidget } from './TrayItemWidget';
 import { DefaultNodeModel } from '@projectstorm/react-diagrams';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
@@ -18,7 +19,8 @@ export class BodyWidget extends React.Component {
         React.createElement(S.Header, null,
           React.createElement("div", { className: "title" }, "Fridge WireDiagram"),
           <CloneSelected engine={this.props.app.getDiagramEngine()} model={this.props.app.getActiveDiagram()}/>,
-          <CanvasDragToggle engine={this.props.app.getDiagramEngine()} model={this.props.app.getActiveDiagram()} />
+          <CanvasDragToggle engine={this.props.app.getDiagramEngine()} model={this.props.app.getActiveDiagram()} />,
+          <Serializer model={this.props.app.getActiveDiagram()} />,
         ),
         React.createElement(S.Content, null,
           React.createElement(TrayWidget, null,
