@@ -20,7 +20,7 @@ DemoWorkspaceWidget.propTypes = {
 const S = {};
 
 S.Toolbar = styled.div`
-  padding: 5px;
+  // padding: 5px;
   display: flex;
   flex-shrink: 0;
 `;
@@ -47,7 +47,7 @@ export const DemoButton = styled.button`
   color: white;
   outline: none;
   cursor: pointer;
-  margin: 2px;
+  // margin: 2px;
   border-radius: 3px;
 
   &:hover {
