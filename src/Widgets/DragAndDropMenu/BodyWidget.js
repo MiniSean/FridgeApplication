@@ -10,21 +10,13 @@ import styled from '@emotion/styled';
 import { Application } from '../ApplicationWidget';
 
 export class BodyWidget extends React.Component {
-    app;
-    cloneSelect;
-
-    constructor(props){
-        super(props);
-        let engine =  this.props.app.getDiagramEngine();
-        this.cloneSelect = new CloneSelected({engine});
-    }
 
   render() {
     return (
       React.createElement(S.Body, null,
         React.createElement(S.Header, null,
           React.createElement("div", { className: "title" }, "Fridge WireDiagram"),
-          this.cloneSelect.render()
+          <CloneSelected engine={this.props.app.getDiagramEngine()} model={this.props.app.getActiveDiagram()}/>
         ),
         React.createElement(S.Content, null,
           React.createElement(TrayWidget, null,
