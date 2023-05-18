@@ -2,6 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+// import App from './ExploratoryUI/GPTUI1';
+// import App from './ExploratoryUI/GPTUI2';
+// import App from './ExploratoryUI/GPTUI3';
+// import App from './ExploratoryUI/GPTUI4';
+// import App from './ExploratoryUI/DryUI1';
+// import App from './ExploratoryUI/GPTUI5';
+// import App from './ExploratoryUI/GPTUI6';
+// import App from './ExploratoryUI/FunctionalUI1';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
