@@ -10,6 +10,7 @@ import { DiamondNodeModel } from '.././CustomNode/DiamondNodeModel';
 import { DiamondNodeFactory } from '.././CustomNode/DiamondNodeFactory';
 import { SimplePortFactory } from '.././CustomNode/SimplePortFactory';
 import { DiamondPortModel } from '.././CustomNode/DiamondPortModel';
+import { DescriptiveNodeModel } from '../CustomNode/DescriptiveNode/DesciptiveNodeModel';
 
 export class Application {
 	diagramModel;
@@ -66,14 +67,19 @@ export class Application {
 		//3-D) create an orphaned node
 		var node3 = new DefaultNodeModel('Node 3', 'rgb(0,192,255)');
 		node3.addOutPort('Out');
+		node3.addOutPort('I')
+		node3.addOutPort('Q')
 		node3.setPosition(100, 200);
 
 		//3-E) create orphaned diamond node
 		var node4 = new DiamondNodeModel('Mixer');
 		node4.setPosition(200, 200);
 
+		var node6 = new DescriptiveNodeModel('NodeName');
+		node6.setPosition(400, 200)
+
 		//4) add the models to the root graph
-		model.addAll(node1, node2, node3, node4, node5);
+		model.addAll(node1, node2, node3, node4, node5, node6);
 
 		return model
 	}

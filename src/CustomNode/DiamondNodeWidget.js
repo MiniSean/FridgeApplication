@@ -18,9 +18,6 @@ const S = {
   `
 };
 
-/**
- * @author Dylan Vorster
- */
 export class DiamondNodeWidget extends React.Component {
 	render() {
 		return (
