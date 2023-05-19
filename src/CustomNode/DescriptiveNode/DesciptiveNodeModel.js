@@ -3,8 +3,9 @@
 // - Has two output ports 'Output-I' and 'Output-Q'.
 // - Both ports should create a RightAnglePortModel, which is an extension of the DefaultPortModel (also from react-diagrams), this model creates a RightAngleLinkModel when calling its createLinkModel method.
 // - Make sure the CustomNodeModel and RightAnglePortModel classes have the export key.
-// - Create the corresponding CustomNodeFactory and RightAngleLinkFactory and give a comment in the code on where to use these.
-// - Create the corresponding CustomNodeWidget and RightAngleLinkWidget and give a comment in the code on where to use these.
+// - Create the corresponding CustomNodeFactory and give a comment in the code on where to use these.
+// - Create the corresponding CustomNodeWidget and give a comment in the code on where to use these.
+// - Make sure to specify where to register the RightAngleLinkFactory and CustomNodeFactory to the engine.
 import { 
    NodeModel,
    DefaultNodeModel,
@@ -42,11 +43,6 @@ export class CustomNodeModel extends DefaultNodeModel {
          port.maximumLinkCount = 1;
       });
    }
-
-   // // Override the createLinkModel method to use RightAngleLinkModel for all ports
-   // createLinkModel() {
-   //    return new RightAngleLinkModel();
-   // }
 }
 
 export class RightAnglePortModel extends DefaultPortModel {
