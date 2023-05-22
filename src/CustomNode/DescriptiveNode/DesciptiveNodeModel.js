@@ -8,40 +8,71 @@
 // - Make sure to specify where to register the RightAngleLinkFactory and CustomNodeFactory to the engine.
 import { 
    NodeModel,
+   NodeWidget,
    DefaultNodeModel,
    DefaultPortModel, 
-   DefaultLinkModel, 
+   DefaultLinkModel,
+   DefaultPortLabel,
    DiagramEngine,
    DefaultNodeWidget,
    DefaultLinkWidget,
    DefaultNodeFactory,
    DefaultLinkFactory,
-   RightAngleLinkModel ,
+   RightAngleLinkModel,
 } from '@projectstorm/react-diagrams';
 import * as React from 'react';
+import * as _ from 'lodash';
 import { AbstractReactFactory } from '@projectstorm/react-canvas-core';
+import styled from '@emotion/styled';
+import { Settings } from '@mui/icons-material';
 
 // Custom Models //
 
 export class CustomNodeModel extends DefaultNodeModel {
-   constructor() {
+   constructor(name) {
       super({
          type: 'custom-node',
+         name: name,
+         color: 'gray', // Color for the entire node
       });
 
       // Create the output ports
-      const portI = this.addPort(new RightAnglePortModel({ type: 'right-angle-port', name: 'Output-I', maximumLinks: 1, canLinkPort: true }));
-      const portQ = this.addPort(new RightAnglePortModel({ type: 'right-angle-port', name: 'Output-Q', maximumLinks: 1, canLinkPort: true }));
-      
-      // Set the desired position of the ports
-      portI.setPosition('right');
-      portQ.setPosition('right');
+      const portOutI = this.addPort(new RightAnglePortModel({
+         in: false,
+         type: 'right-angle-port',
+         name: 'OutputI',
+         label: 'I-Out',
+         maximumLinks: 1,
+         canLinkPort: true,
+      }));
 
-      // Set properties for all ports
-      Object.values(this.ports).forEach((port) => {
-         port.canLinkPort = true;
-         port.maximumLinkCount = 1;
-      });
+      const portOutQ = this.addPort(new RightAnglePortModel({
+         in: false,
+         type: 'right-angle-port',
+         name: 'OutputQ',
+         label: 'Q-Out',
+         maximumLinks: 1,
+         canLinkPort: true,
+      }));
+
+      // Create the input ports
+      const portInI = this.addPort(new RightAnglePortModel({
+         in: true,
+         type: 'right-angle-port',
+         name: 'InputI',
+         label: 'I-In',
+         maximumLinks: 1,
+         canLinkPort: true,
+      }));
+
+      const portInQ = this.addPort(new RightAnglePortModel({
+         in: true,
+         type: 'right-angle-port',
+         name: 'InputQ',
+         label: 'Q-In',
+         maximumLinks: 1,
+         canLinkPort: true,
+      }));
    }
 }
 
@@ -88,10 +119,110 @@ export class CustomNodeFactory extends AbstractReactFactory {
 //    }
 //  }
 
- // Custom Widgets //
+// Custom Widgets //
 
-export class CustomNodeWidget extends DefaultNodeWidget {
-   // Custom implementation for rendering the node widget
+const S = {
+   Node: styled.div((p) => ({
+     backgroundColor: 'transparent',
+     borderRadius: '5px',
+     fontFamily: 'sans-serif',
+     color: 'white',
+     overflow: 'visible',
+     fontSize: '11px',
+     border: `solid 2px ${p.selected ? 'rgb(0,192,255)' : 'black'}`,
+     position: 'relative', // Add higher z-index value
+   })),
+ 
+   Header: styled.div((p) => ({
+      display: 'flex',
+      backgroundColor: p.background,
+   })),
+
+   Icon: styled.div({
+      background: 'rgba(233, 153, 38, 1)',
+      display: 'flex',
+      whiteSpace: 'nowrap',
+      justifyItems: 'center',
+   }),
+
+   IconText: styled.div({
+      fontWeight: 'bold',
+      textAlign: 'center',
+      fontSize: '16px',
+      padding: '0 2px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }),
+
+   Title: styled.div({
+     background: 'linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4))',
+     display: 'flex',
+     whiteSpace: 'nowrap',
+     justifyItems: 'center',
+   }),
+ 
+   TitleName: styled.div({
+     flexGrow: 1,
+     padding: '5px 20px',
+   }),
+ 
+   Ports: styled.div({
+     display: 'flex',
+     backgroundColor: 'rgba(0, 90, 255, 0.1)',
+   }),
+ 
+   PortsContainer: styled.div((p) => ({
+      flexGrow: 1,
+      flexDirection: 'column',
+      ...(p[':first-of-type'] && { marginRight: '10px' }),
+      ...(p[':only-child'] && { marginRight: '0px' }),
+      ...(p.type === 'in' && { textAlign: 'left' }), // Added text alignment for PortsInContainer
+      ...(p.type === 'out' && { textAlign: 'right' }), // Added text alignment for PortsOutContainer
+   })),
+ };
+
+/**
+ * Source: https://github.com/projectstorm/react-diagrams/blob/master/packages/react-diagrams-defaults/src/node/DefaultNodeWidget.tsx
+ */
+class CustomNodeWidget extends React.Component {
+   generatePort(port) {
+     return <DefaultPortLabel engine={this.props.engine} port={port} key={port.getID()} />;
+   }
+
+   render() {
+      const nodeOptions = this.props.node.getOptions();
+    
+      return (
+        <S.Node
+          data-default-node-name={nodeOptions.name}
+          selected={this.props.node.isSelected()}
+          background={nodeOptions.color}
+        >
+            <S.Header
+               background={nodeOptions.color}
+            >
+               <S.Icon>
+                  <S.IconText>{"UHF"}</S.IconText>
+               </S.Icon>
+               <S.Title>
+                  <S.TitleName>{nodeOptions.name}</S.TitleName>
+               </S.Title>
+               <S.Icon>
+                  <Settings/>
+               </S.Icon>
+            </S.Header>
+            <S.Ports>
+               <S.PortsContainer type={"in"}>
+                  {_.map(this.props.node.getInPorts(), this.generatePort.bind(this))}
+               </S.PortsContainer>
+               <S.PortsContainer type={"out"}>
+                  {_.map(this.props.node.getOutPorts(), this.generatePort.bind(this))}
+               </S.PortsContainer>
+            </S.Ports>
+        </S.Node>
+      );
+    }
 }
  
 //  export class RightAngleLinkWidget extends DefaultLinkWidget {
