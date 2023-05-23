@@ -37,7 +37,7 @@ export class CustomNodeModel extends DefaultNodeModel {
       });
 
       // Create the output ports
-      const portOutI = this.addPort(new RightAnglePortModel({
+      const portOutI = this.addPort(new DefaultPortModel({  // RightAnglePortModel
          in: false,
          type: 'right-angle-port',
          name: 'OutputI',
@@ -46,7 +46,7 @@ export class CustomNodeModel extends DefaultNodeModel {
          canLinkPort: true,
       }));
 
-      const portOutQ = this.addPort(new RightAnglePortModel({
+      const portOutQ = this.addPort(new DefaultPortModel({
          in: false,
          type: 'right-angle-port',
          name: 'OutputQ',
@@ -56,7 +56,7 @@ export class CustomNodeModel extends DefaultNodeModel {
       }));
 
       // Create the input ports
-      const portInI = this.addPort(new RightAnglePortModel({
+      const portInI = this.addPort(new DefaultPortModel({
          in: true,
          type: 'right-angle-port',
          name: 'InputI',
@@ -65,7 +65,7 @@ export class CustomNodeModel extends DefaultNodeModel {
          canLinkPort: true,
       }));
 
-      const portInQ = this.addPort(new RightAnglePortModel({
+      const portInQ = this.addPort(new DefaultPortModel({
          in: true,
          type: 'right-angle-port',
          name: 'InputQ',
