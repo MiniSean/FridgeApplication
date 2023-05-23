@@ -11,6 +11,8 @@ import { TrayWidget } from '../Widgets/DragAndDropMenu/TrayWidget';
 import { TrayItemWidget } from '../Widgets/DragAndDropMenu/TrayItemWidget';
 import { DemoCanvasWidget } from '../Widgets/DemoCanvasWidget';
 import { Application } from '../Widgets/ApplicationWidget';
+import { CustomNodeModel } from '../CustomNode/DescriptiveNode/DesciptiveNodeModel';
+
 
 const theme = createTheme({
   palette: {
@@ -102,6 +104,7 @@ export class InventoryPanel extends React.Component {
     render() {
         const tabs = ['Sources', 'Mixers', 'Local Oscillators', 'Attenuation'];
         const buttons = ['#1', '#2', '#3', '#4', '#5', '#6'];
+        const customModel = new CustomNodeModel('dev8383');
       return (
         <Grid id="Inventory" item xs={3} container spacing={0}>
             {/* Tabs */}
@@ -120,7 +123,7 @@ export class InventoryPanel extends React.Component {
             <Grid id="Display" item xs={8}>
             <Paper style={{ height: '100%', padding: '0px' }} elevation={2} square>
                 {/* Grid with Buttons */}
-                <Grid container spacing={0}>
+                {/* <Grid container spacing={0}>
                     {buttons.map((button, index) => (
                         <Grid key={index} item xs={12} lg={6}>
                         <Button variant="outlined" color="primary" fullWidth square>
@@ -128,8 +131,10 @@ export class InventoryPanel extends React.Component {
                         </Button>
                         </Grid>
                     ))}
-                    <TrayItemWidget model={{ type: 'in' }} name="In Node" color="rgb(192,255,0)"/>
-                </Grid>
+                    <TrayItemWidget model={{ type: 'out' }} name="In Node" color="rgb(192,255,0)"/>
+                </Grid> */}
+                <TrayItemWidget model={{type: 'in'}} name="UHFQC" color="rgb(233, 153, 38)"/>
+                <TrayItemWidget model={{type: 'out'}} name="QMO" color="rgb(50, 170, 230)"/>
             </Paper>
             </Grid>
         </Grid>
@@ -151,6 +156,33 @@ export class WorkspacePanel extends React.Component {
     }));
     };
 
+    handleDrop = (event) => {
+      // Handle the drop event
+      // Access event data, perform necessary operations, etc.
+      var data = JSON.parse(event.dataTransfer.getData('storm-diagram-node'));
+      var nodesCount = _.keys(this.props.app.getDiagramEngine().getModel().getNodes()).length;
+
+      var node = null;
+      if (data.type === 'in') {
+          node = new CustomNodeModel('dev8383');
+      } else if (data.type === 'out') {
+          node = new CustomNodeModel('uhfqc');
+      } else {
+
+      }
+      
+      var point = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
+      node.setPosition(point);
+      this.props.app.getDiagramEngine().getModel().addNode(node);
+      this.forceUpdate();
+    };
+    
+    handleDragOver = event => {
+        // Handle the drag over event
+        // Access event data, perform necessary operations, etc.
+        event.preventDefault();
+    };
+
     render() {
         const { isExpanded } = this.state;
 
@@ -158,8 +190,10 @@ export class WorkspacePanel extends React.Component {
         <Grid item xs={9}>
             <Grid item xs={12} style={{ position: 'relative' }}>
             {/* Workspace Content */}
-            <div id="Workspace Content" style={{ backgroundColor: '#1E1E1E', height: '100vh', position: 'relative', zIndex: 1 }}>
-                <WorkspaceContent app={this.props.app}/>
+            <div id="Workspace Content" onDrop={this.handleDrop} onDragOver={this.handleDragOver} style={{ backgroundColor: '#1E1E1E', height: '100vh', position: 'relative', zIndex: 1 }}>
+              <DemoCanvasWidget>
+                <CanvasWidget engine={this.props.app.getDiagramEngine()} />
+              </DemoCanvasWidget>
             </div>
 
             {/* Right Toolbar */}
@@ -208,47 +242,6 @@ export class WorkspaceToolbar extends React.Component {
 }
 WorkspaceToolbar.propTypes = {
   isExpanded: Boolean,
-};
-
-export class WorkspaceContent extends React.Component {
-
-    handleDrop = event => {
-        // Handle the drop event
-        // Access event data, perform necessary operations, etc.
-        var data = JSON.parse(event.dataTransfer.getData('storm-diagram-node'));
-        var nodesCount = _.keys(this.props.app.getDiagramEngine().getModel().getNodes()).length;
-
-        var node = null;
-        if (data.type === 'in') {
-            node = new DefaultNodeModel('Node ' + (nodesCount + 1), 'rgb(192,255,0)');
-            node.addInPort('In');
-        } else {
-            node = new DefaultNodeModel('Node ' + (nodesCount + 1), 'rgb(0,192,255)');
-            node.addOutPort('Out');
-        }
-        
-        var point = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
-        node.setPosition(point);
-        this.props.app.getDiagramEngine().getModel().addNode(node);
-        this.forceUpdate();
-    };
-    
-    handleDragOver = event => {
-        // Handle the drag over event
-        // Access event data, perform necessary operations, etc.
-        event.preventDefault();
-    };
-
-    render() {
-        return(
-            <DemoCanvasWidget onDrop={this.handleDrop} onDragOver={this.handleDragOver}>
-                <CanvasWidget engine={this.props.app.getDiagramEngine()} />
-            </DemoCanvasWidget>
-        );
-    }
-}
-WorkspaceContent.propTypes = {
-    app: Application,
 };
 
 export const App = () => {
