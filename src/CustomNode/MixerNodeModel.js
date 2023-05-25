@@ -5,36 +5,45 @@ import {
     DescriptiveNodeModel,
 } from "./DescriptiveNode/DesciptiveNodeModel";
 
-export class BiasTNodeModel extends DescriptiveNodeModel {
+export class MixerNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'biast-node',
+            type: 'mixer-node',
             nameMain: '',
-            nameHighlight: 'BiasT',
+            nameHighlight: 'MXR',
             colorMain: 'grey',
             colorHighlight: 'darkgrey',
         });
+
         this.addPort(new DefaultPortModel({
             in: true,
             type: 'right-angle-port',
-            name: 'InputDC',
-            label: 'DC',
+            name: 'InputLO',
+            label: 'LO',
             maximumLinks: 1,
             canLinkPort: true,
         }));
         this.addPort(new DefaultPortModel({
             in: true,
             type: 'right-angle-port',
-            name: 'InputRF',
-            label: 'RF',
+            name: 'InputI',
+            label: 'I',
+            maximumLinks: 1,
+            canLinkPort: true,
+        }));
+        this.addPort(new DefaultPortModel({
+            in: true,
+            type: 'right-angle-port',
+            name: 'InputQ',
+            label: 'Q',
             maximumLinks: 1,
             canLinkPort: true,
         }));
         this.addPort(new DefaultPortModel({
             in: false,
             type: 'right-angle-port',
-            name: 'OutputBoth',
-            label: 'RF + DC',
+            name: 'OutputRF',
+            label: 'RF',
             maximumLinks: 1,
             canLinkPort: true,
         }));

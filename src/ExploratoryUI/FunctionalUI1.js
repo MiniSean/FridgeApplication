@@ -12,8 +12,7 @@ import { TrayItemWidget } from '../Widgets/DragAndDropMenu/TrayItemWidget';
 import { DemoCanvasWidget } from '../Widgets/DemoCanvasWidget';
 import { Application } from '../Widgets/ApplicationWidget';
 import { DescriptiveNodeModel } from '../CustomNode/DescriptiveNode/DesciptiveNodeModel';
-import { BiasTNodeModel } from '../CustomNode/BiasTNodeModel';
-
+import { Collection } from '../CustomNode/NodeCollection';
 
 const theme = createTheme({
   palette: {
@@ -35,6 +34,9 @@ const Item = experimentalStyled(Paper)(({ theme }) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
 }));
+
+const nodeCollection = new Collection();
+
 
 export class BodyContent extends React.Component {
 
@@ -101,46 +103,50 @@ MainContent.propTypes = {
 };
 
 export class InventoryPanel extends React.Component {
+  renderTrayItems() {
+    return nodeCollection.nodes.map((nodeClass, index) => (
+      <TrayItemWidget key={index} model={{ type: nodeClass.name }} name={nodeClass.name} color="rgb(50, 168, 82)"/>
+    ));
+  }
 
-    render() {
-        const tabs = ['Sources', 'Mixers', 'Local Oscillators', 'Attenuation'];
-        const buttons = ['#1', '#2', '#3', '#4', '#5', '#6'];
-      return (
-        <Grid id="Inventory" item xs={3} container spacing={0}>
-            {/* Tabs */}
-            <Grid id="Tabs" item xs={4}>
-            <Paper style={{ height: '100%', padding: '0px' }} elevation={1} square>
-                {/* Vertical Tabs */}
-                <Tabs orientation="vertical" value={0}>
-                {tabs.map((tab, index) => (
-                    <Tab key={index} icon={<Folder />} label={tab} />
-                ))}
-                </Tabs>
-            </Paper>
-            </Grid>
+  render() {
+      const tabs = ['Sources', 'Mixers', 'Local Oscillators', 'Attenuation'];
+      const buttons = ['#1', '#2', '#3', '#4', '#5', '#6'];
+    return (
+      <Grid id="Inventory" item xs={3} container spacing={0}>
+          {/* Tabs */}
+          <Grid id="Tabs" item xs={4}>
+          <Paper style={{ height: '100%', padding: '0px' }} elevation={1} square>
+              {/* Vertical Tabs */}
+              <Tabs orientation="vertical" value={0}>
+              {tabs.map((tab, index) => (
+                  <Tab key={index} icon={<Folder />} label={tab} />
+              ))}
+              </Tabs>
+          </Paper>
+          </Grid>
 
-            {/* Display */}
-            <Grid id="Display" item xs={8}>
-            <Paper style={{ height: '100%', padding: '0px' }} elevation={2} square>
-                {/* Grid with Buttons */}
-                {/* <Grid container spacing={0}>
-                    {buttons.map((button, index) => (
-                        <Grid key={index} item xs={12} lg={6}>
-                        <Button variant="outlined" color="primary" fullWidth square>
-                            {button}
-                        </Button>
-                        </Grid>
-                    ))}
-                    <TrayItemWidget model={{ type: 'out' }} name="In Node" color="rgb(192,255,0)"/>
-                </Grid> */}
-                <TrayItemWidget model={{type: 'in'}} name="UHFQC" color="rgb(233, 153, 38)"/>
-                <TrayItemWidget model={{type: 'out'}} name="QMO" color="rgb(50, 170, 230)"/>
-                <TrayItemWidget model={{type: 'biast'}} name="Bias-T" color="rgb(50, 168, 82)"/>
-            </Paper>
-            </Grid>
-        </Grid>
-      );
-    }
+          {/* Display */}
+          <Grid id="Display" item xs={8}>
+          <Paper style={{ height: '100%', padding: '0px' }} elevation={2} square>
+              {/* Grid with Buttons */}
+              {/* <Grid container spacing={0}>
+                  {buttons.map((button, index) => (
+                      <Grid key={index} item xs={12} lg={6}>
+                      <Button variant="outlined" color="primary" fullWidth square>
+                          {button}
+                      </Button>
+                      </Grid>
+                  ))}
+                  <TrayItemWidget model={{ type: 'out' }} name="In Node" color="rgb(192,255,0)"/>
+              </Grid> */}
+              {/* <TrayItemWidget model={{type: 'biast'}} name="Bias-T" color="rgb(50, 168, 82)"/> */}
+            <div className="tray-items">{this.renderTrayItems()}</div>
+          </Paper>
+          </Grid>
+      </Grid>
+    );
+  }
 }
 
 export class WorkspacePanel extends React.Component {
@@ -164,18 +170,27 @@ export class WorkspacePanel extends React.Component {
       var nodesCount = _.keys(this.props.app.getDiagramEngine().getModel().getNodes()).length;
 
       var node = null;
-      if (data.type === 'in') {
-          node = new DescriptiveNodeModel({name: 'dev8383'});
-      } else if (data.type === 'out') {
-          node = new DescriptiveNodeModel({name: 'uhfqc'});
-      } else if (data.type === 'biast') {
-          node = new BiasTNodeModel('biasT');
+      // if (data.type === 'in') {
+      //     node = new DescriptiveNodeModel({name: 'dev8383'});
+      // } else if (data.type === 'out') {
+      //     node = new DescriptiveNodeModel({name: 'uhfqc'});
+      // } else if (data.type === 'biast') {
+      //     node = new BiasTNodeModel('biasT');
+      // }
+      for (let i = 0; i < nodeCollection.nodes.length; i++) {
+        const nodeClass = nodeCollection.nodes[i];
+        if (nodeClass.name === data.type) {
+          node = new nodeClass(); // Instantiate the matching node class
+          break;
+        }
       }
       
-      var point = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
-      node.setPosition(point);
-      this.props.app.getDiagramEngine().getModel().addNode(node);
-      this.forceUpdate();
+      if (node) {
+        var point = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
+        node.setPosition(point);
+        this.props.app.getDiagramEngine().getModel().addNode(node);
+        this.forceUpdate();
+      }
     };
     
     handleDragOver = event => {

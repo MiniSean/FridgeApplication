@@ -32,55 +32,58 @@ export class DescriptiveNodeModel extends DefaultNodeModel {
    constructor(props) {
       const defaultProps = {
          type: 'custom-node',
-         name: props.name,
-         color: 'gray', // Color for the entire node
+         name: props.nameMain,
+         color: props.colorMain, // Color for the entire node
       };
-      props.type = defaultProps.type;
-      super(props);
+      super(defaultProps);
+      this.nameHighlight = props.nameHighlight;
+      this.colorHighlight = props.colorHighlight;
 
-      // Create the output ports
-      const portOutI = this.addPort(new DefaultPortModel({  // RightAnglePortModel
-         in: false,
-         type: 'right-angle-port',
-         name: 'OutputI',
-         label: 'I-Out',
-         maximumLinks: 1,
-         canLinkPort: true,
-      }));
+      // // Create the output ports
+      // const portOutI = this.addPort(new DefaultPortModel({  // RightAnglePortModel
+      //    in: false,
+      //    type: 'right-angle-port',
+      //    name: 'OutputI',
+      //    label: 'I-Out',
+      //    maximumLinks: 1,
+      //    canLinkPort: true,
+      // }));
 
-      const portOutQ = this.addPort(new DefaultPortModel({
-         in: false,
-         type: 'right-angle-port',
-         name: 'OutputQ',
-         label: 'Q-Out',
-         maximumLinks: 1,
-         canLinkPort: true,
-      }));
+      // const portOutQ = this.addPort(new DefaultPortModel({
+      //    in: false,
+      //    type: 'right-angle-port',
+      //    name: 'OutputQ',
+      //    label: 'Q-Out',
+      //    maximumLinks: 1,
+      //    canLinkPort: true,
+      // }));
 
-      // Create the input ports
-      const portInI = this.addPort(new DefaultPortModel({
-         in: true,
-         type: 'right-angle-port',
-         name: 'InputI',
-         label: 'I-In',
-         maximumLinks: 1,
-         canLinkPort: true,
-      }));
+      // // Create the input ports
+      // const portInI = this.addPort(new DefaultPortModel({
+      //    in: true,
+      //    type: 'right-angle-port',
+      //    name: 'InputI',
+      //    label: 'I-In',
+      //    maximumLinks: 1,
+      //    canLinkPort: true,
+      // }));
 
-      const portInQ = this.addPort(new DefaultPortModel({
-         in: true,
-         type: 'right-angle-port',
-         name: 'InputQ',
-         label: 'Q-In',
-         maximumLinks: 1,
-         canLinkPort: true,
-      }));
+      // const portInQ = this.addPort(new DefaultPortModel({
+      //    in: true,
+      //    type: 'right-angle-port',
+      //    name: 'InputQ',
+      //    label: 'Q-In',
+      //    maximumLinks: 1,
+      //    canLinkPort: true,
+      // }));
    }
 }
 DescriptiveNodeModel.propTypes = {
    type: String,
-   name: String,
-   color: String,
+   nameMain: String,
+   nameHighlight: String,
+   colorMain: String,
+   colorHighlight: String,
 };
 
 export class RightAnglePortModel extends DefaultPortModel {
@@ -145,18 +148,18 @@ const S = {
       backgroundColor: p.background,
    })),
 
-   Icon: styled.div({
-      background: 'rgba(233, 153, 38, 1)',
+   Icon: styled.div((p) => ({
+      background: p.color,
       display: 'flex',
       whiteSpace: 'nowrap',
       justifyItems: 'center',
-   }),
+   })),
 
    IconText: styled.div({
       fontWeight: 'bold',
       textAlign: 'center',
       fontSize: '16px',
-      padding: '0 2px',
+      padding: '0 5px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -171,8 +174,20 @@ const S = {
  
    TitleName: styled.div({
      flexGrow: 1,
+     fontSize: '14px',
      padding: '5px 20px',
    }),
+
+   TitleInput: styled.input({
+      flexGrow: 1,
+      padding: '5px',
+      border: 'none',
+      outline: 'none',
+      background: 'transparent',
+      color: 'white',
+      fontSize: '14px',
+      textAlign: 'center',
+    }),
  
    Ports: styled.div({
      display: 'flex',
@@ -209,13 +224,14 @@ export class DescriptiveNodeWidget extends React.Component {
             <S.Header
                background={nodeOptions.color}
             >
-               <S.Icon>
-                  <S.IconText>{"UHF"}</S.IconText>
+               <S.Icon color={this.props.node.colorHighlight}>
+                  <S.IconText>{this.props.node.nameHighlight}</S.IconText>
                </S.Icon>
                <S.Title>
-                  <S.TitleName>{nodeOptions.name}</S.TitleName>
+                  {/* <S.TitleName>{nodeOptions.name}</S.TitleName> */}
+                  <S.TitleInput type="text" maxLength={20} placeholder="Component Name" />
                </S.Title>
-               <S.Icon>
+               <S.Icon color={this.props.node.colorHighlight}>
                   <Settings/>
                </S.Icon>
             </S.Header>

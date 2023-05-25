@@ -5,36 +5,37 @@ import {
     DescriptiveNodeModel,
 } from "./DescriptiveNode/DesciptiveNodeModel";
 
-export class BiasTNodeModel extends DescriptiveNodeModel {
+export class LONodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'biast-node',
+            type: 'lo-node',
             nameMain: '',
-            nameHighlight: 'BiasT',
-            colorMain: 'grey',
-            colorHighlight: 'darkgrey',
+            nameHighlight: 'LO',
+            colorMain: 'blue',
+            colorHighlight: 'lightblue',
         });
+
         this.addPort(new DefaultPortModel({
             in: true,
             type: 'right-angle-port',
-            name: 'InputDC',
-            label: 'DC',
-            maximumLinks: 1,
-            canLinkPort: true,
-        }));
-        this.addPort(new DefaultPortModel({
-            in: true,
-            type: 'right-angle-port',
-            name: 'InputRF',
-            label: 'RF',
+            name: 'InputRef',
+            label: 'Ref',
             maximumLinks: 1,
             canLinkPort: true,
         }));
         this.addPort(new DefaultPortModel({
             in: false,
             type: 'right-angle-port',
-            name: 'OutputBoth',
-            label: 'RF + DC',
+            name: 'OutputRef',
+            label: 'Ref',
+            maximumLinks: 1,
+            canLinkPort: true,
+        }));
+        this.addPort(new DefaultPortModel({
+            in: false,
+            type: 'right-angle-port',
+            name: 'OutputRF',
+            label: 'RF',
             maximumLinks: 1,
             canLinkPort: true,
         }));
