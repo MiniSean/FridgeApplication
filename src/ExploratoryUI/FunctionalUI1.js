@@ -11,7 +11,8 @@ import { TrayWidget } from '../Widgets/DragAndDropMenu/TrayWidget';
 import { TrayItemWidget } from '../Widgets/DragAndDropMenu/TrayItemWidget';
 import { DemoCanvasWidget } from '../Widgets/DemoCanvasWidget';
 import { Application } from '../Widgets/ApplicationWidget';
-import { CustomNodeModel } from '../CustomNode/DescriptiveNode/DesciptiveNodeModel';
+import { DescriptiveNodeModel } from '../CustomNode/DescriptiveNode/DesciptiveNodeModel';
+import { BiasTNodeModel } from '../CustomNode/BiasTNodeModel';
 
 
 const theme = createTheme({
@@ -104,7 +105,6 @@ export class InventoryPanel extends React.Component {
     render() {
         const tabs = ['Sources', 'Mixers', 'Local Oscillators', 'Attenuation'];
         const buttons = ['#1', '#2', '#3', '#4', '#5', '#6'];
-        const customModel = new CustomNodeModel('dev8383');
       return (
         <Grid id="Inventory" item xs={3} container spacing={0}>
             {/* Tabs */}
@@ -135,6 +135,7 @@ export class InventoryPanel extends React.Component {
                 </Grid> */}
                 <TrayItemWidget model={{type: 'in'}} name="UHFQC" color="rgb(233, 153, 38)"/>
                 <TrayItemWidget model={{type: 'out'}} name="QMO" color="rgb(50, 170, 230)"/>
+                <TrayItemWidget model={{type: 'biast'}} name="Bias-T" color="rgb(50, 168, 82)"/>
             </Paper>
             </Grid>
         </Grid>
@@ -164,11 +165,11 @@ export class WorkspacePanel extends React.Component {
 
       var node = null;
       if (data.type === 'in') {
-          node = new CustomNodeModel('dev8383');
+          node = new DescriptiveNodeModel({name: 'dev8383'});
       } else if (data.type === 'out') {
-          node = new CustomNodeModel('uhfqc');
-      } else {
-
+          node = new DescriptiveNodeModel({name: 'uhfqc'});
+      } else if (data.type === 'biast') {
+          node = new BiasTNodeModel('biasT');
       }
       
       var point = this.props.app.getDiagramEngine().getRelativeMousePoint(event);

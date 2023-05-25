@@ -13,7 +13,7 @@ import { DiamondNodeModel } from '.././CustomNode/DiamondNodeModel';
 import { DiamondNodeFactory } from '.././CustomNode/DiamondNodeFactory';
 import { SimplePortFactory } from '.././CustomNode/SimplePortFactory';
 import { DiamondPortModel } from '.././CustomNode/DiamondPortModel';
-import { CustomNodeModel, CustomNodeFactory } from '../CustomNode/DescriptiveNode/DesciptiveNodeModel';
+import { DescriptiveNodeModel, DescriptiveNodeFactory } from '../CustomNode/DescriptiveNode/DesciptiveNodeModel';
 
 export class Application {
 	diagramModel;
@@ -51,7 +51,7 @@ export class Application {
 		// Right angle link factory
 		engine.getLinkFactories().registerFactory(new RightAngleLinkFactory(), 'right-angle-link');
 		// Custom node factory
-		engine.getNodeFactories().registerFactory(new CustomNodeFactory());
+		engine.getNodeFactories().registerFactory(new DescriptiveNodeFactory());
 
 		return engine;
 	}

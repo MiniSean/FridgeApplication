@@ -28,13 +28,15 @@ import { Settings } from '@mui/icons-material';
 
 // Custom Models //
 
-export class CustomNodeModel extends DefaultNodeModel {
-   constructor(name) {
-      super({
+export class DescriptiveNodeModel extends DefaultNodeModel {
+   constructor(props) {
+      const defaultProps = {
          type: 'custom-node',
-         name: name,
+         name: props.name,
          color: 'gray', // Color for the entire node
-      });
+      };
+      props.type = defaultProps.type;
+      super(props);
 
       // Create the output ports
       const portOutI = this.addPort(new DefaultPortModel({  // RightAnglePortModel
@@ -75,6 +77,11 @@ export class CustomNodeModel extends DefaultNodeModel {
       }));
    }
 }
+DescriptiveNodeModel.propTypes = {
+   type: String,
+   name: String,
+   color: String,
+};
 
 export class RightAnglePortModel extends DefaultPortModel {
   createLinkModel() {
@@ -92,17 +99,17 @@ export class RightAnglePortModel extends DefaultPortModel {
 
 // Custom Factories //
 
-export class CustomNodeFactory extends AbstractReactFactory {
+export class DescriptiveNodeFactory extends AbstractReactFactory {
    constructor() {
      super('custom-node');
    }
  
    generateModel(initialConfig) {
-     return new CustomNodeModel();
+     return new DescriptiveNodeModel();
    }
  
    generateReactWidget(event) {
-     return <CustomNodeWidget engine={this.engine} node={event.model} />;}
+     return <DescriptiveNodeWidget engine={this.engine} node={event.model} />;}
  }
  
 //  export class RightAngleLinkFactory extends AbstractReactFactory {
@@ -185,7 +192,7 @@ const S = {
 /**
  * Source: https://github.com/projectstorm/react-diagrams/blob/master/packages/react-diagrams-defaults/src/node/DefaultNodeWidget.tsx
  */
-class CustomNodeWidget extends React.Component {
+export class DescriptiveNodeWidget extends React.Component {
    generatePort(port) {
      return <DefaultPortLabel engine={this.props.engine} port={port} key={port.getID()} />;
    }
