@@ -256,9 +256,9 @@ export class DescriptiveNodeWidget extends React.Component {
                <S.Title>
                   <TitleInputComponent node={this.props.node} onChange={this.handleInputChange} />
                </S.Title>
-               <S.Icon color={this.props.node.colorHighlight}>
+               {/* <S.Icon color={this.props.node.colorHighlight}>
                   <Settings/>
-               </S.Icon>
+               </S.Icon> */}
             </S.Header>
             <S.Ports>
                <S.PortsContainer type={"in"}>
