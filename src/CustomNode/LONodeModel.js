@@ -12,7 +12,7 @@ export class LONodeModel extends DescriptiveNodeModel {
             name: '',
             nameHighlight: 'LO',
             color: 'blue',
-            colorHighlight: 'lightblue',
+            colorHighlight: 'rgb(60, 126, 232)',
         });
 
         this.addPort(new DefaultPortModel({

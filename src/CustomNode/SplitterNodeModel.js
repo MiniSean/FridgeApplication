@@ -51,7 +51,6 @@ export class Splitter4NodeModel extends DescriptiveNodeModel {
 
         this.addPort(new DefaultPortModel({
             in: true,
-            type: 'right-angle-port',
             name: 'Input',
             label: 'In',
             maximumLinks: 1,
@@ -59,7 +58,6 @@ export class Splitter4NodeModel extends DescriptiveNodeModel {
         }));
         this.addPort(new DefaultPortModel({
             in: false,
-            type: 'right-angle-port',
             name: 'Output1',
             label: '1-Out',
             maximumLinks: 1,
@@ -67,7 +65,6 @@ export class Splitter4NodeModel extends DescriptiveNodeModel {
         }));
         this.addPort(new DefaultPortModel({
             in: false,
-            type: 'right-angle-port',
             name: 'Output2',
             label: '2-Out',
             maximumLinks: 1,
@@ -75,7 +72,6 @@ export class Splitter4NodeModel extends DescriptiveNodeModel {
         }));
         this.addPort(new DefaultPortModel({
             in: false,
-            type: 'right-angle-port',
             name: 'Output3',
             label: '3-Out',
             maximumLinks: 1,
@@ -83,7 +79,6 @@ export class Splitter4NodeModel extends DescriptiveNodeModel {
         }));
         this.addPort(new DefaultPortModel({
             in: false,
-            type: 'right-angle-port',
             name: 'Output4',
             label: '4-Out',
             maximumLinks: 1,

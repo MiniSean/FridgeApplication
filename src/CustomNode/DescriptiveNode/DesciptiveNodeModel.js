@@ -35,6 +35,7 @@ export class DescriptiveNodeModel extends DefaultNodeModel {
          nameHighlight = '',
          color = 'gray',
          colorHighlight = 'lightgray',
+         titleName = '',
          ...otherProps
       } = props;
 
@@ -47,6 +48,7 @@ export class DescriptiveNodeModel extends DefaultNodeModel {
       super(defaultProps);
       this.nameHighlight = nameHighlight;
       this.colorHighlight = colorHighlight;
+      this.titleName = titleName; // This property can be updated by widget text-input
    }
 
    // Override the serialize method to define how your custom node should be serialized
@@ -56,6 +58,7 @@ export class DescriptiveNodeModel extends DefaultNodeModel {
          // Add any additional custom properties you want to include in the serialization
          nameHighlight: this.nameHighlight,
          colorHighlight: this.colorHighlight,
+         titleName: this.titleName,
       };
    }
 
@@ -65,6 +68,7 @@ export class DescriptiveNodeModel extends DefaultNodeModel {
       // Handle the deserialization of your custom properties
       this.nameHighlight = event.data.nameHighlight;
       this.colorHighlight = event.data.colorHighlight;
+      this.titleName = event.data.titleName;
    }
 }
 DescriptiveNodeModel.propTypes = {
@@ -193,7 +197,19 @@ const S = {
    })),
  };
 
-class TitleInput extends React.Component {
+class TitleInputComponent extends React.Component {
+
+   handleInputChange = (event) => {
+      const { node } = this.props;
+      const value = event.target.value;
+      // Update the titleName property of the node
+      node.titleName = value;
+      // Update the input value in the component state
+      this.setState({
+         inputValue: value,
+      });
+   };
+
    handleKeyDown = (event) => {
       // Prevent node deletion when typing and pressing 'delete' or 'backspace' keys
       if (event.key === 'Delete' || event.key === 'Backspace') {
@@ -208,7 +224,9 @@ class TitleInput extends React.Component {
          maxLength={20}
          placeholder="Component Name"
          onKeyDown={this.handleKeyDown}
-         {...this.props}
+         onChange={this.handleInputChange}
+         value={this.props.node.titleName}
+         // {...this.props}
          />
       );
    }
@@ -236,7 +254,7 @@ export class DescriptiveNodeWidget extends React.Component {
                   <S.IconText>{this.props.node.nameHighlight}</S.IconText>
                </S.Icon>
                <S.Title>
-                  <TitleInput value={this.props.node.id} onChange={this.handleInputChange} />
+                  <TitleInputComponent node={this.props.node} onChange={this.handleInputChange} />
                </S.Title>
                <S.Icon color={this.props.node.colorHighlight}>
                   <Settings/>
