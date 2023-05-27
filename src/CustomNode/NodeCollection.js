@@ -6,6 +6,8 @@ import { LONodeModel } from './LONodeModel';
 import { HDAWGNodeModel } from './HDAWGNodeModel';
 import { FeedlineNodeModel } from './FeedlineNodeModel';
 import { RefDistributorNodeModel } from './RefDistributorNodeModel';
+import { S4gNodeModel } from './S4gNodeModel';
+import { TransmonNodeModel } from './TransmonNodeModel';
 
 export class Collection {
     constructor() {
@@ -20,6 +22,8 @@ export class Collection {
         this.addNode(BiasTNodeModel);
         this.addNode(FeedlineNodeModel);
         this.addNode(RefDistributorNodeModel);
+        this.addNode(S4gNodeModel);
+        this.addNode(TransmonNodeModel);
         // Add more NodeModel classes as needed
     }
 
