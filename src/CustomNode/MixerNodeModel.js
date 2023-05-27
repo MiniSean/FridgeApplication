@@ -9,15 +9,14 @@ export class MixerNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
             type: 'mixer-node',
-            nameMain: '',
+            name: '',
             nameHighlight: 'MXR',
-            colorMain: 'grey',
+            color: 'grey',
             colorHighlight: 'darkgrey',
         });
 
         this.addPort(new DefaultPortModel({
             in: true,
-            type: 'right-angle-port',
             name: 'InputLO',
             label: 'LO',
             maximumLinks: 1,
@@ -25,7 +24,6 @@ export class MixerNodeModel extends DescriptiveNodeModel {
         }));
         this.addPort(new DefaultPortModel({
             in: true,
-            type: 'right-angle-port',
             name: 'InputI',
             label: 'I',
             maximumLinks: 1,
@@ -33,7 +31,6 @@ export class MixerNodeModel extends DescriptiveNodeModel {
         }));
         this.addPort(new DefaultPortModel({
             in: true,
-            type: 'right-angle-port',
             name: 'InputQ',
             label: 'Q',
             maximumLinks: 1,
@@ -41,7 +38,6 @@ export class MixerNodeModel extends DescriptiveNodeModel {
         }));
         this.addPort(new DefaultPortModel({
             in: false,
-            type: 'right-angle-port',
             name: 'OutputRF',
             label: 'RF',
             maximumLinks: 1,

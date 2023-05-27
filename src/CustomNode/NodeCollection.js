@@ -4,6 +4,7 @@ import { Splitter2NodeModel, Splitter4NodeModel } from './SplitterNodeModel';
 import { MixerNodeModel } from './MixerNodeModel';
 import { LONodeModel } from './LONodeModel';
 import { HDAWGNodeModel } from './HDAWGNodeModel';
+import { FeedlineNodeModel } from './FeedlineNodeModel';
 
 export class Collection {
     constructor() {
@@ -16,6 +17,7 @@ export class Collection {
         this.addNode(Splitter2NodeModel);
         this.addNode(Splitter4NodeModel);
         this.addNode(BiasTNodeModel);
+        this.addNode(FeedlineNodeModel);
         // Add more NodeModel classes as needed
     }
 

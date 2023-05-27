@@ -29,53 +29,42 @@ import { Settings } from '@mui/icons-material';
 // Custom Models //
 
 export class DescriptiveNodeModel extends DefaultNodeModel {
-   constructor(props) {
+   constructor(props = {}) {
+      const {
+         name = 'defaultName',
+         nameHighlight = '',
+         color = 'gray',
+         colorHighlight = 'lightgray',
+         ...otherProps
+      } = props;
+
       const defaultProps = {
-         type: 'custom-node',
-         name: props.nameMain,
-         color: props.colorMain, // Color for the entire node
+         ...otherProps,
+         type: 'descriptive-node',
+         name: name,
+         color: color, // Color for the entire node
       };
       super(defaultProps);
-      this.nameHighlight = props.nameHighlight;
-      this.colorHighlight = props.colorHighlight;
+      this.nameHighlight = nameHighlight;
+      this.colorHighlight = colorHighlight;
+   }
 
-      // // Create the output ports
-      // const portOutI = this.addPort(new DefaultPortModel({  // RightAnglePortModel
-      //    in: false,
-      //    type: 'right-angle-port',
-      //    name: 'OutputI',
-      //    label: 'I-Out',
-      //    maximumLinks: 1,
-      //    canLinkPort: true,
-      // }));
+   // Override the serialize method to define how your custom node should be serialized
+   serialize() {
+      return {
+         ...super.serialize(), // Call the parent's serialize method to include default serialized data
+         // Add any additional custom properties you want to include in the serialization
+         nameHighlight: this.nameHighlight,
+         colorHighlight: this.colorHighlight,
+      };
+   }
 
-      // const portOutQ = this.addPort(new DefaultPortModel({
-      //    in: false,
-      //    type: 'right-angle-port',
-      //    name: 'OutputQ',
-      //    label: 'Q-Out',
-      //    maximumLinks: 1,
-      //    canLinkPort: true,
-      // }));
-
-      // // Create the input ports
-      // const portInI = this.addPort(new DefaultPortModel({
-      //    in: true,
-      //    type: 'right-angle-port',
-      //    name: 'InputI',
-      //    label: 'I-In',
-      //    maximumLinks: 1,
-      //    canLinkPort: true,
-      // }));
-
-      // const portInQ = this.addPort(new DefaultPortModel({
-      //    in: true,
-      //    type: 'right-angle-port',
-      //    name: 'InputQ',
-      //    label: 'Q-In',
-      //    maximumLinks: 1,
-      //    canLinkPort: true,
-      // }));
+   // Override the deserialize method to define how your custom node should be deserialized
+   deserialize(event, engine) {
+      super.deserialize(event, engine);
+      // Handle the deserialization of your custom properties
+      this.nameHighlight = event.data.nameHighlight;
+      this.colorHighlight = event.data.colorHighlight;
    }
 }
 DescriptiveNodeModel.propTypes = {
@@ -104,7 +93,7 @@ export class RightAnglePortModel extends DefaultPortModel {
 
 export class DescriptiveNodeFactory extends AbstractReactFactory {
    constructor() {
-     super('custom-node');
+     super('descriptive-node');
    }
  
    generateModel(initialConfig) {
@@ -204,6 +193,27 @@ const S = {
    })),
  };
 
+class TitleInput extends React.Component {
+   handleKeyDown = (event) => {
+      // Prevent node deletion when typing and pressing 'delete' or 'backspace' keys
+      if (event.key === 'Delete' || event.key === 'Backspace') {
+         event.stopPropagation();
+      }
+   };
+
+   render() {
+      return (
+         <S.TitleInput
+         type="text"
+         maxLength={20}
+         placeholder="Component Name"
+         onKeyDown={this.handleKeyDown}
+         {...this.props}
+         />
+      );
+   }
+}
+
 /**
  * Source: https://github.com/projectstorm/react-diagrams/blob/master/packages/react-diagrams-defaults/src/node/DefaultNodeWidget.tsx
  */
@@ -221,15 +231,12 @@ export class DescriptiveNodeWidget extends React.Component {
           selected={this.props.node.isSelected()}
           background={nodeOptions.color}
         >
-            <S.Header
-               background={nodeOptions.color}
-            >
+            <S.Header background={nodeOptions.color}>
                <S.Icon color={this.props.node.colorHighlight}>
                   <S.IconText>{this.props.node.nameHighlight}</S.IconText>
                </S.Icon>
                <S.Title>
-                  {/* <S.TitleName>{nodeOptions.name}</S.TitleName> */}
-                  <S.TitleInput type="text" maxLength={20} placeholder="Component Name" />
+                  <TitleInput value={this.props.node.id} onChange={this.handleInputChange} />
                </S.Title>
                <S.Icon color={this.props.node.colorHighlight}>
                   <Settings/>

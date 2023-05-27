@@ -1,0 +1,40 @@
+Todo:
+
+New workspace toolbar modes:
+- Handgrab (canvas move)
+- Select (box selection)
+
+New default nodes:
+- Node with angled (optimal routing) links
+: Prompt 1 :
+Write a class that extends the DefaultNodeModel from projectstorm react-diagrams library that:
+- Has two output ports 'Output-I' and 'Output-Q'.
+- Both ports should use the default RightAnglePortModel, which is an extension of the DefaultPortModel (also from react-diagrams), this model creates a RightAngleLinkModel when calling its createLinkModel method.
+- Ensure that all ports have their canLinkPort property set to true and the maximumLink property set to 1.
+- Make sure the CustomNodeModel and RightAnglePortModel classes have the export key.
+- Create the corresponding CustomNodeFactory and RightAngleLinkFactory and give a comment in the code on where to use these.
+- Create the corresponding CustomNodeWidget and RightAngleLinkWidget and give a comment in the code on where to use these.
+
+: Prompt 2 :
+Write a class that extends the DefaultNodeModel from projectstorm react-diagrams library that:
+- Has two output ports 'Output-I' and 'Output-Q'.
+- Both ports should use the default RightAngleLinkModel.
+- Ensure that all ports have their canLinkPort property set to true and the maximumLink property set to 1.
+- Make sure the CustomNodeModel class has the export key.
+- Create the corresponding CustomNodeFactory and give a comment in the code on where to use these.
+- Create the corresponding CustomNodeWidget and give a comment in the code on where to use these.
+
+- Node with icon in top left
+- Node with description or visualization (plot) in center.
+- Node with constant (enum) dropdown at position of input ports.
+- Node with gradient.
+- Ports with description or Icon.
+: Prompt 1 :
+Write a class that extends the DefaultNodeWidget from projectstorm react-diagrams library with the following requirements:
+- Name this class CustomNodeWidget.
+Update the render method such that:
+- The node 'header' (where normally the name is visualized) now has the option for the left square section of the header to get a specified color (for example orange) and a specific icon (for example MUI settings icon).
+- Make sure that functions like 'renderPortLabels', 'getInPorts' and 'getOutPorts' are implemented in the same way that react-diagram implements them by default.
+
+New node selection feature:
+- When selecting node open a small tooltip above node with 'delete' 

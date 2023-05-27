@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
+// import { remote } from 'electron';
+// import { writeFile as fsWriteFile, readFile as fsReadFile } from 'fs/promises';
 import { AppBar, Toolbar, Button, Tabs, Tab, Box, Grid, Paper, IconButton, Collapse } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Settings, Download, Upload, Folder, ToggleOnOutlined, ToggleOff, ContentCopy, Clear } from '@mui/icons-material';
+import { Settings, Download, Upload, NoteAdd, Folder, ToggleOnOutlined, ToggleOff, ContentCopy, Clear } from '@mui/icons-material';
 import { experimentalStyled } from '@mui/material/styles';
 import _ from 'lodash';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
-import { DefaultNodeModel } from '@projectstorm/react-diagrams';
-import styled from '@emotion/styled';
-import { TrayWidget } from '../Widgets/DragAndDropMenu/TrayWidget';
+import { DiagramModel } from '@projectstorm/react-diagrams';
 import { TrayItemWidget } from '../Widgets/DragAndDropMenu/TrayItemWidget';
 import { DemoCanvasWidget } from '../Widgets/DemoCanvasWidget';
 import { Application } from '../Widgets/ApplicationWidget';
-import { DescriptiveNodeModel } from '../CustomNode/DescriptiveNode/DesciptiveNodeModel';
 import { Collection } from '../CustomNode/NodeCollection';
 
 const theme = createTheme({
@@ -45,7 +44,7 @@ export class BodyContent extends React.Component {
         <ThemeProvider theme={theme}>
 
         {/* MainToolbar */}
-        <CustomAppBar/>
+        <CustomAppBar app={this.props.app}/>
   
         {/* Main Content */}
         <MainContent app={this.props.app}/>
@@ -59,27 +58,189 @@ BodyContent.propTypes = {
 };
 
 export class CustomAppBar extends React.Component {
+  /**
+   * Handle the export button click.
+   * Serializes the model and prompts the user to save the serialized JSON to a file.
+   */
+  // handleExport = async () => {
+  //   const { dialog } = remote;
+  //   const engine = this.props.app.getDiagramEngine();
+  //   const model = engine.getModel();
+  
+  //   try {
+  //     const result = await dialog.showSaveDialog({
+  //       defaultPath: process.cwd(),
+  //       filters: [
+  //         { name: 'JSON', extensions: ['json'] }
+  //       ]
+  //     });
+  
+  //     if (!result.canceled && result.filePath) {
+  //       const filePath = result.filePath;
+  //       const serializedModel = model.serialize();
+  //       await this.writeFile(filePath, serializedModel);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error during file export:', error);
+  //   }
+  // };
+  handleExport = () => {
+    const engine = this.props.app.getDiagramEngine();
+    const model = engine.getModel();
+    const serializedModel = JSON.stringify(model.serialize());
+    console.log(serializedModel);
+  
+    const element = document.createElement('a');
+    element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(serializedModel));
+    element.setAttribute('download', 'diagram.json');
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+  
 
-    render() {
-      return (
-        <AppBar id="Toolbar" position="static">
-          <Toolbar style={{ width: '80%', margin: '0 auto', justifyContent: 'flex-end' }}>
-            <Button color="inherit">
-                <Download />
-                Import
-            </Button>
-            <Button color="inherit">
-                <Upload />
-                Export
-            </Button>
-            <Button color="inherit">
-                <Settings />
-                Settings
-            </Button>
-            </Toolbar>
-        </AppBar>
-      );
-    }
+  /**
+   * Write the serialized JSON to a file.
+   * @param {string} filePath - The file path to save the JSON file.
+   * @param {string} data - The serialized JSON data.
+   */
+  // writeFile = async (filePath, data) => {
+  //   try {
+  //     await fsWriteFile(filePath, data);
+  //     console.log('File saved successfully!');
+  //   } catch (error) {
+  //     console.error('Error writing file:', error);
+  //   }
+  // };
+
+  /**
+   * Handle the import button click.
+   * Prompts the user to select a JSON file.
+   * Reads the selected file, deserializes the model, and sets it to the engine.
+   */
+  // handleImport = async () => {
+  //   const { dialog } = remote;
+  
+  //   try {
+  //     const result = await dialog.showOpenDialog({
+  //       properties: ['openFile'],
+  //       filters: [
+  //         { name: 'JSON', extensions: ['json'] }
+  //       ]
+  //     });
+  
+  //     if (!result.canceled && result.filePaths.length > 0) {
+  //       const filePath = result.filePaths[0];
+  //       const serializedModel = await this.readFile(filePath);
+  
+  //       const engine = this.props.app.getDiagramEngine();
+  //       const model = engine.getModel();
+  //       model.deserializeModel(JSON.parse(serializedModel), engine);
+  //       engine.setModel(model);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error during file import:', error);
+  //   }
+  // };
+  handleImport = () => {
+    // Create a file input element dynamically
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.json'; // Restrict to .json files only
+  
+    // Set up event listener for file selection
+    fileInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+  
+      reader.onload = (e) => {
+        // const contents = e.target.result;
+        const contents = reader.result;
+        const jsonDataString = contents.toString();
+        const jsonData = JSON.parse(jsonDataString);
+        const engine = this.props.app.getDiagramEngine();
+        const model = new DiagramModel();
+        model.deserializeModel(jsonData, engine);
+        engine.setModel(model);
+      };
+  
+      reader.readAsText(file);
+    });
+  
+    // Trigger the file input click event
+    fileInput.click();
+  };
+  
+  
+  
+
+  /**
+   * Read the content of a file.
+   * @param {string} filePath - The file path to read.
+   * @returns {Promise<string>} - A promise that resolves with the file content.
+   */
+  // readFile = async (filePath) => {
+  //   try {
+  //     const data = await fsReadFile(filePath, 'utf-8');
+  //     return data;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // };
+
+  /**
+   * Handle the clear button click.
+   * Clears all elements inside the model.
+   * Future update: Remove all listeners from both nodes and links before replacing model.
+   */
+  handleClear = () => {
+    const engine = this.props.app.getDiagramEngine();
+    const model = engine.getModel();
+  
+    // Remove all nodes from the model
+    model.getNodes().forEach((node) => {
+      model.removeNode(node);
+    });
+
+    // Remove all links from the model
+    model.getLinks().forEach((link) => {
+      model.removeLink(link);
+    });
+  
+    // Force update the component to reflect the changes
+    // Create a new instance of DiagramModel
+    const newModel = new DiagramModel();
+
+    // Set the new model on the diagram engine
+    engine.setModel(newModel);
+    console.log('Model cleared successfully!');
+  };
+
+  render() {
+    return (
+      <AppBar id="Toolbar" position="static">
+        <Toolbar style={{ width: '80%', margin: '0 auto', justifyContent: 'flex-end' }}>
+          <Button color="inherit" onClick={this.handleImport}>
+              <Download />
+              Import
+          </Button>
+          <Button color="inherit" onClick={this.handleExport}>
+              <Upload />
+              Export
+          </Button>
+          <Button color="inherit" onClick={this.handleClear}>
+              <NoteAdd />
+              Clear
+          </Button>
+          <Button color="inherit">
+              <Settings />
+              Settings
+          </Button>
+          </Toolbar>
+      </AppBar>
+    );
+  }
 }
 
 export class MainContent extends React.Component {
