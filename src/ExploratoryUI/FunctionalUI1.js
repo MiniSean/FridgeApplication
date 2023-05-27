@@ -290,19 +290,8 @@ export class InventoryPanel extends React.Component {
           {/* Display */}
           <Grid id="Display" item xs={8}>
           <Paper style={{ height: '100%', padding: '0px' }} elevation={2} square>
-              {/* Grid with Buttons */}
-              {/* <Grid container spacing={0}>
-                  {buttons.map((button, index) => (
-                      <Grid key={index} item xs={12} lg={6}>
-                      <Button variant="outlined" color="primary" fullWidth square>
-                          {button}
-                      </Button>
-                      </Grid>
-                  ))}
-                  <TrayItemWidget model={{ type: 'out' }} name="In Node" color="rgb(192,255,0)"/>
-              </Grid> */}
-              {/* <TrayItemWidget model={{type: 'biast'}} name="Bias-T" color="rgb(50, 168, 82)"/> */}
-            <div className="tray-items">{this.renderTrayItems()}</div>
+              {/* Tray with items */}
+              <div className="tray-items">{this.renderTrayItems()}</div>
           </Paper>
           </Grid>
       </Grid>
