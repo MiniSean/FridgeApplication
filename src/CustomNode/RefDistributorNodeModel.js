@@ -5,14 +5,14 @@ import {
     DescriptiveNodeModel,
 } from "./DescriptiveNode/DesciptiveNodeModel";
 
-export class LONodeModel extends DescriptiveNodeModel {
+export class RefDistributorNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'lo-node',
-            name: '',
-            nameHighlight: 'LO',
-            color: 'rgb(21, 93, 209)',
-            colorHighlight: 'rgb(60, 126, 232)',
+            type: 'refdist-node',
+            name: 'Reference Distribution Module',
+            nameHighlight: 'RDM',
+            color: 'gray',
+            colorHighlight: 'darkgrey',
         });
 
         this.addPort(new DefaultPortModel({
@@ -26,14 +26,6 @@ export class LONodeModel extends DescriptiveNodeModel {
             in: false,
             name: 'OutputRef',
             label: 'Ref',
-            maximumLinks: 1,
-            canLinkPort: true,
-        }));
-        this.addPort(new DefaultPortModel({
-            in: false,
-            name: 'OutputRF',
-            label: 'RF',
-            maximumLinks: 1,
             canLinkPort: true,
         }));
     }
