@@ -3,7 +3,7 @@ import {
 } from '@projectstorm/react-diagrams';
 import { 
     DescriptiveNodeModel,
-} from "./DescriptiveNode/DesciptiveNodeModel";
+} from "../DesciptiveNodeModel";
 
 export class S4gNodeModel extends DescriptiveNodeModel {
     constructor() {

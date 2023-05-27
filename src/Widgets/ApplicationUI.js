@@ -8,9 +8,9 @@ import { experimentalStyled } from '@mui/material/styles';
 import _ from 'lodash';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
 import { DiagramModel } from '@projectstorm/react-diagrams';
-import { TrayItemWidget } from '../Widgets/DragAndDropMenu/TrayItemWidget';
-import { DemoCanvasWidget } from '../Widgets/DemoCanvasWidget';
-import { Application } from '../Widgets/ApplicationWidget';
+import { TrayItemWidget } from './DragAndDropMenu/TrayItemWidget';
+import { DemoCanvasWidget } from './CanvasWidget';
+import { Application } from './ApplicationWidget';
 import { Collection } from '../CustomNode/NodeCollection';
 
 const theme = createTheme({

@@ -3,43 +3,50 @@ import {
 } from '@projectstorm/react-diagrams';
 import { 
     DescriptiveNodeModel,
-} from "./DescriptiveNode/DesciptiveNodeModel";
+} from "../DesciptiveNodeModel";
 
-export class MixerNodeModel extends DescriptiveNodeModel {
+export class UHFNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'mixer-node',
+            type: 'uhf-node',
             name: '',
-            nameHighlight: 'MXR',
-            color: 'grey',
-            colorHighlight: 'darkgrey',
+            nameHighlight: 'UHF',
+            color: 'blue',
+            colorHighlight: 'rgba(233, 153, 38, 1)',
         });
 
         this.addPort(new DefaultPortModel({
             in: true,
-            name: 'InputLO',
-            label: 'LO',
-            maximumLinks: 1,
-            canLinkPort: true,
-        }));
-        this.addPort(new DefaultPortModel({
-            in: true,
-            name: 'InputI',
-            label: 'I',
-            maximumLinks: 1,
-            canLinkPort: true,
-        }));
-        this.addPort(new DefaultPortModel({
-            in: true,
-            name: 'InputQ',
-            label: 'Q',
+            name: 'InputRef',
+            label: 'Ref',
             maximumLinks: 1,
             canLinkPort: true,
         }));
         this.addPort(new DefaultPortModel({
             in: false,
-            name: 'OutputRF',
-            label: 'RF',
+            name: 'InputI',
+            label: 'I-in',
+            maximumLinks: 1,
+            canLinkPort: true,
+        }));
+        this.addPort(new DefaultPortModel({
+            in: false,
+            name: 'InputQ',
+            label: 'Q-in',
+            maximumLinks: 1,
+            canLinkPort: true,
+        }));
+        this.addPort(new DefaultPortModel({
+            in: false,
+            name: 'OutputI',
+            label: 'I-out',
+            maximumLinks: 1,
+            canLinkPort: true,
+        }));
+        this.addPort(new DefaultPortModel({
+            in: false,
+            name: 'OutputQ',
+            label: 'Q-out',
             maximumLinks: 1,
             canLinkPort: true,
         }));

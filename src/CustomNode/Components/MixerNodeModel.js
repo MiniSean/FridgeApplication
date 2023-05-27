@@ -3,50 +3,43 @@ import {
 } from '@projectstorm/react-diagrams';
 import { 
     DescriptiveNodeModel,
-} from "./DescriptiveNode/DesciptiveNodeModel";
+} from "../DesciptiveNodeModel";
 
-export class UHFNodeModel extends DescriptiveNodeModel {
+export class MixerNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'uhf-node',
+            type: 'mixer-node',
             name: '',
-            nameHighlight: 'UHF',
-            color: 'blue',
-            colorHighlight: 'rgba(233, 153, 38, 1)',
+            nameHighlight: 'MXR',
+            color: 'grey',
+            colorHighlight: 'darkgrey',
         });
 
         this.addPort(new DefaultPortModel({
             in: true,
-            name: 'InputRef',
-            label: 'Ref',
+            name: 'InputLO',
+            label: 'LO',
             maximumLinks: 1,
             canLinkPort: true,
         }));
         this.addPort(new DefaultPortModel({
-            in: false,
+            in: true,
             name: 'InputI',
-            label: 'I-in',
+            label: 'I',
             maximumLinks: 1,
             canLinkPort: true,
         }));
         this.addPort(new DefaultPortModel({
-            in: false,
+            in: true,
             name: 'InputQ',
-            label: 'Q-in',
+            label: 'Q',
             maximumLinks: 1,
             canLinkPort: true,
         }));
         this.addPort(new DefaultPortModel({
             in: false,
-            name: 'OutputI',
-            label: 'I-out',
-            maximumLinks: 1,
-            canLinkPort: true,
-        }));
-        this.addPort(new DefaultPortModel({
-            in: false,
-            name: 'OutputQ',
-            label: 'Q-out',
+            name: 'OutputRF',
+            label: 'RF',
             maximumLinks: 1,
             canLinkPort: true,
         }));

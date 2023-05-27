@@ -3,35 +3,29 @@ import {
 } from '@projectstorm/react-diagrams';
 import { 
     DescriptiveNodeModel,
-} from "./DescriptiveNode/DesciptiveNodeModel";
+} from "../DesciptiveNodeModel";
 
-export class BiasTNodeModel extends DescriptiveNodeModel {
+export class FeedlineNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'biast-node',
+            type: 'feedline-node',
             name: '',
-            nameHighlight: 'BiasT',
+            nameHighlight: 'FL',
             color: 'grey',
             colorHighlight: 'darkgrey',
         });
+
         this.addPort(new DefaultPortModel({
             in: true,
-            name: 'InputDC',
-            label: 'DC',
+            name: 'OutputFeedline',
+            label: 'Feedline-Out',
             maximumLinks: 1,
             canLinkPort: true,
         }));
         this.addPort(new DefaultPortModel({
             in: true,
-            name: 'InputRF',
-            label: 'RF',
-            maximumLinks: 1,
-            canLinkPort: true,
-        }));
-        this.addPort(new DefaultPortModel({
-            in: false,
-            name: 'OutputBoth',
-            label: 'RF + DC',
+            name: 'InputFeedline',
+            label: 'Feedline-In',
             maximumLinks: 1,
             canLinkPort: true,
         }));

@@ -1,7 +1,6 @@
 import './App.css';
 import * as React from 'react';
-import { BodyWidget } from './Widgets/DragAndDropMenu/BodyWidget';
-import { BodyContent } from './ExploratoryUI/FunctionalUI1';
+import { BodyContent } from './Widgets/ApplicationUI';
 import { Application } from './Widgets/ApplicationWidget';
 
 export default () => {

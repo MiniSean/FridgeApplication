@@ -1,13 +1,13 @@
-import { BiasTNodeModel } from './BiasTNodeModel';
-import { UHFNodeModel } from './UHFNodeModel';
-import { Splitter2NodeModel, Splitter4NodeModel } from './SplitterNodeModel';
-import { MixerNodeModel } from './MixerNodeModel';
-import { LONodeModel } from './LONodeModel';
-import { HDAWGNodeModel } from './HDAWGNodeModel';
-import { FeedlineNodeModel } from './FeedlineNodeModel';
-import { RefDistributorNodeModel } from './RefDistributorNodeModel';
-import { S4gNodeModel } from './S4gNodeModel';
-import { TransmonNodeModel } from './TransmonNodeModel';
+import { BiasTNodeModel } from './Components/BiasTNodeModel';
+import { UHFNodeModel } from './Components/UHFNodeModel';
+import { Splitter2NodeModel, Splitter4NodeModel } from './Components/SplitterNodeModel';
+import { MixerNodeModel } from './Components/MixerNodeModel';
+import { LONodeModel } from './Components/LONodeModel';
+import { HDAWGNodeModel } from './Components/HDAWGNodeModel';
+import { FeedlineNodeModel } from './Components/FeedlineNodeModel';
+import { RefDistributorNodeModel } from './Components/RefDistributorNodeModel';
+import { S4gNodeModel } from './Components/S4gNodeModel';
+import { TransmonNodeModel } from './Components/TransmonNodeModel';
 
 export class Collection {
     constructor() {
