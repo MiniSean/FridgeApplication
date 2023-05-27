@@ -1,9 +1,10 @@
 # FridgeApplication
-A complete tool for building and maintaining hardware configurations in the context of experimental setups.
+A tool for building and maintaining hardware configurations in the context of experimental quantum computing setups.
+Written in a react environment compatible with any browser-based interface.
 ![](.gitbook/assets/TitleScreen.png)
 
 # Disclaimer
-This project is heavily inspired by ![react-diagrams](https://github.com/projectstorm/react-diagrams/tree/master). A modern flow & process orientated diagramming library inspired by **Blender** and **Unreal engine**. Be sure to check their repository.
+This project is heavily inspired by [react-diagrams](https://github.com/projectstorm/react-diagrams/tree/master), a modern flow & process orientated diagramming library inspired by **Blender** and **Unreal engine**. Be sure to checkout their repository.
 
 # Getting started
 Pre:-requisities:
@@ -21,10 +22,15 @@ In order to update changes to the code, simply run `rs` in the terminal.
 
 # How to use
 Here is the application layout with intended purpose:
+
 ![](.gitbook/assets/Example3.png)
+
 Each new component can be dragged into the workspace and given a name:
+
 ![](.gitbook/assets/Example2.gif)
+
 Different components can be linked together to indicate the flow of information:
+
 ![](.gitbook/assets/Example3.gif)
 
 # Project goals
