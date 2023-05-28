@@ -313,14 +313,14 @@ export class WorkspaceToolbar extends React.Component {
       <Collapse id="Workspace Collapsable" in={this.props.isExpanded} collapsedWidth={64} timeout="auto" unmountOnExit>
       <AppBar id="Toolbar" position="absolute" style={{ right: 0, top: '10%', bottom: '20%', width: 64, zIndex: 2 }}>
           <Toolbar id="Toolbar Container" style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end' }}>
+          <IconButton color="inherit" aria-label="Copy" title="New" onClick={this.handleClear}>
+              <NoteAdd />
+          </IconButton>
           <IconButton color="inherit" aria-label="Copy" title="Import" onClick={this.handleImport}>
               <Download />
           </IconButton>
           <IconButton color="inherit" aria-label="Copy" title="Export" onClick={this.handleExport}>
               <Upload />
-          </IconButton>
-          <IconButton color="inherit" aria-label="Copy" title="Clear" onClick={this.handleClear}>
-              <NoteAdd />
           </IconButton>
           <IconButton color="inherit" aria-label="Copy" title="Copy">
               <ContentCopy />
