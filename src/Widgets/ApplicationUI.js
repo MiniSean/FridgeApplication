@@ -7,7 +7,6 @@ import { Settings, Download, Upload, NoteAdd, Folder, ToggleOnOutlined, ToggleOf
 import { experimentalStyled } from '@mui/material/styles';
 import _ from 'lodash';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
-import { DiagramModel } from '@projectstorm/react-diagrams';
 import { TrayItemWidget } from './DragAndDropMenu/TrayItemWidget';
 import { DemoCanvasWidget } from './CanvasWidget';
 import { Application } from './ApplicationWidget';
@@ -162,13 +161,6 @@ export class WorkspacePanel extends React.Component {
       var nodesCount = _.keys(this.props.app.getDiagramEngine().getModel().getNodes()).length;
 
       var node = null;
-      // if (data.type === 'in') {
-      //     node = new DescriptiveNodeModel({name: 'dev8383'});
-      // } else if (data.type === 'out') {
-      //     node = new DescriptiveNodeModel({name: 'uhfqc'});
-      // } else if (data.type === 'biast') {
-      //     node = new BiasTNodeModel('biasT');
-      // }
       for (let i = 0; i < nodeCollection.nodes.length; i++) {
         const nodeClass = nodeCollection.nodes[i];
         if (nodeClass.name === data.type) {
@@ -209,13 +201,13 @@ export class WorkspacePanel extends React.Component {
 
             {/* Toggle Button */}
             <IconButton
-            id="Toolbar Toggle"
-            color="white"
-            aria-label="Toggle Toolbar"
-            style={{ position: 'absolute', right: 10, top: 10, zIndex: 3 }}
-            onClick={this.toggleToolbar}
+              id="Toolbar Toggle"
+              color="white"
+              aria-label="Toggle Toolbar"
+              style={{ position: 'absolute', right: 10, top: 10, zIndex: 3 }}
+              onClick={this.toggleToolbar}
             >
-            {isExpanded ? <ToggleOff /> : <ToggleOnOutlined />}
+              {isExpanded ? <ToggleOff /> : <ToggleOnOutlined />}
             </IconButton>
             </Grid>
         </Grid>
@@ -268,7 +260,7 @@ export class WorkspaceToolbar extends React.Component {
         const jsonDataString = contents.toString();
         const jsonData = JSON.parse(jsonDataString);
         const engine = this.props.app.getDiagramEngine();
-        const model = new DiagramModel();
+        const model = Application.getModel();
         model.deserializeModel(jsonData, engine);
         engine.setModel(model);
       };
@@ -301,7 +293,7 @@ export class WorkspaceToolbar extends React.Component {
   
     // Force update the component to reflect the changes
     // Create a new instance of DiagramModel
-    const newModel = new DiagramModel();
+    const newModel = Application.getModel();
 
     // Set the new model on the diagram engine
     engine.setModel(newModel);

@@ -25,7 +25,7 @@ export class Application {
 		this.pathfinding = this.diagramEngine.getLinkFactories().getFactory<PathFindingLinkFactory>(PathFindingLinkFactory.NAME);
 		// ############################################ MAGIC HAPPENS HERE
 
-		this.diagramModel = this.getModel();
+		this.diagramModel = Application.getModel();
 		
   		//5) load model into engine
 		this.diagramEngine.setModel(this.diagramModel);
@@ -43,9 +43,10 @@ export class Application {
 		return engine;
 	}
 
-	getModel() {
+	static getModel() {
 		var model = new DiagramModel();
 		model.setGridSize(25);
+		model.setOffset(13, 13);
 		return model
 	}
 
