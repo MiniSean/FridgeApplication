@@ -16,7 +16,7 @@ export class MixerNodeModel extends DescriptiveNodeModel {
             colorHighlight: 'darkgrey',
         });
 
-        this.addPort(new MyCustomPortModel({
+        this.addPort(new DefaultPortModel({
             in: true,
             name: 'InputLO',
             label: 'LO',

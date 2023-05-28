@@ -25,7 +25,7 @@ import * as _ from 'lodash';
 import { AbstractReactFactory } from '@projectstorm/react-canvas-core';
 import styled from '@emotion/styled';
 import { Settings } from '@mui/icons-material';
-import { MyCustomPortWidget } from './DescriptivePortModel';
+import { MyCustomPortLabel } from './DescriptivePortLabel';
 
 // Custom Models //
 
@@ -174,7 +174,7 @@ const S = {
 
    TitleInput: styled.input({
       flexGrow: 1,
-      padding: '5px',
+      padding: '2px',
       border: 'none',
       outline: 'none',
       background: 'transparent',
@@ -190,7 +190,9 @@ const S = {
  
    PortsContainer: styled.div((p) => ({
       flexGrow: 1,
+      display: 'flex',
       flexDirection: 'column',
+      alignItems: p.type === 'in' ? 'flex-start' : 'flex-end',
       ...(p[':first-of-type'] && { marginRight: '10px' }),
       ...(p[':only-child'] && { marginRight: '0px' }),
       ...(p.type === 'in' && { textAlign: 'left' }), // Added text alignment for PortsInContainer
@@ -239,7 +241,7 @@ class TitleInputComponent extends React.Component {
 export class DescriptiveNodeWidget extends React.Component {
    generatePort(port) {
       return (
-        <MyCustomPortWidget 
+        <MyCustomPortLabel 
           engine={this.props.engine} 
           port={port} 
           key={port.getID()} 

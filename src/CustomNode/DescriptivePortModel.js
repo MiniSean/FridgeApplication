@@ -72,11 +72,12 @@ class MyCustomPortWidget extends React.Component {
         };
 
         return (
-            <DefaultPortLabel style={style}  port={port} engine={engine}>
+            <StormPortWidget style={style}  port={port} engine={engine}>
                 {/* <StormPortWidget style={style} port={port} engine={engine}>
                     <div>My Port</div>
                 </StormPortWidget> */}
-            </DefaultPortLabel>
+                <DefaultPortLabel port={port} engine={engine}/>
+            </StormPortWidget>
         );
     }
 }
