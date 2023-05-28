@@ -10,9 +10,9 @@ export class UHFNodeModel extends DescriptiveNodeModel {
         super({
             type: 'uhf-node',
             name: '',
-            nameHighlight: 'UHF',
-            color: 'blue',
-            colorHighlight: 'rgba(233, 153, 38, 1)',
+            nameHighlight: 'UHFQA',
+            color: '#fff',
+            colorHighlight: '#007ec4',
         });
 
         this.addPort(new DefaultPortModel({

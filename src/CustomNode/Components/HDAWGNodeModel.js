@@ -11,8 +11,8 @@ export class HDAWGNodeModel extends DescriptiveNodeModel {
             type: 'hdawg-node',
             name: '',
             nameHighlight: 'HDAWG',
-            color: 'blue',
-            colorHighlight: 'rgba(233, 153, 38, 1)',
+            color: '#fff',
+            colorHighlight: '#009ee0',  // #007ec4
         });
 
         this.addPort(new DefaultPortModel({

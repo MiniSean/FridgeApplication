@@ -18,14 +18,14 @@ export class FeedlineNodeModel extends DescriptiveNodeModel {
         this.addPort(new DefaultPortModel({
             in: true,
             name: 'OutputFeedline',
-            label: 'Feedline-Out',
+            label: 'Out',
             maximumLinks: 1,
             canLinkPort: true,
         }));
         this.addPort(new DefaultPortModel({
             in: true,
             name: 'InputFeedline',
-            label: 'Feedline-In',
+            label: 'In',
             maximumLinks: 1,
             canLinkPort: true,
         }));

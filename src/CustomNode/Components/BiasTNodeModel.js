@@ -31,7 +31,7 @@ export class BiasTNodeModel extends DescriptiveNodeModel {
         this.addPort(new DefaultPortModel({
             in: false,
             name: 'OutputBoth',
-            label: 'RF + DC',
+            label: 'DC + RF',
             maximumLinks: 1,
             canLinkPort: true,
         }));
