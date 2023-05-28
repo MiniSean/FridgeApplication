@@ -7,6 +7,7 @@ import createEngine, {
 } from '@projectstorm/react-diagrams';
 // import the custom models
 import { DescriptiveNodeFactory } from '../CustomNode/DesciptiveNodeModel';
+import { MyCustomPortFactory } from '../CustomNode/DescriptivePortModel';
 
 export class Application {
 	diagramModel;
@@ -39,6 +40,8 @@ export class Application {
 		engine.getLinkFactories().registerFactory(new RightAngleLinkFactory(), 'right-angle-link');
 		// Custom node factories
 		engine.getNodeFactories().registerFactory(new DescriptiveNodeFactory());
+		// Custom port factories
+		engine.getPortFactories().registerFactory(new MyCustomPortFactory(), 'my.custom.port');
 
 		return engine;
 	}

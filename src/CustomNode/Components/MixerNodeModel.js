@@ -4,6 +4,7 @@ import {
 import { 
     DescriptiveNodeModel,
 } from "../DesciptiveNodeModel";
+import { MyCustomPortModel } from '../DescriptivePortModel';
 
 export class MixerNodeModel extends DescriptiveNodeModel {
     constructor() {
@@ -15,7 +16,7 @@ export class MixerNodeModel extends DescriptiveNodeModel {
             colorHighlight: 'darkgrey',
         });
 
-        this.addPort(new DefaultPortModel({
+        this.addPort(new MyCustomPortModel({
             in: true,
             name: 'InputLO',
             label: 'LO',

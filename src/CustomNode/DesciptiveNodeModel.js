@@ -25,6 +25,7 @@ import * as _ from 'lodash';
 import { AbstractReactFactory } from '@projectstorm/react-canvas-core';
 import styled from '@emotion/styled';
 import { Settings } from '@mui/icons-material';
+import { MyCustomPortWidget } from './DescriptivePortModel';
 
 // Custom Models //
 
@@ -237,7 +238,13 @@ class TitleInputComponent extends React.Component {
  */
 export class DescriptiveNodeWidget extends React.Component {
    generatePort(port) {
-     return <DefaultPortLabel engine={this.props.engine} port={port} key={port.getID()} />;
+      return (
+        <MyCustomPortWidget 
+          engine={this.props.engine} 
+          port={port} 
+          key={port.getID()} 
+        />
+      );
    }
 
    render() {
