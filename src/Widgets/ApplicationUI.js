@@ -108,7 +108,7 @@ MainContent.propTypes = {
 export class InventoryPanel extends React.Component {
   renderTrayItems() {
     return nodeCollection.nodes.map((nodeClass, index) => (
-      <TrayItemWidget key={index} model={{ type: nodeClass.name }} name={nodeClass.name} color="rgb(50, 168, 82)"/>
+      <TrayItemWidget key={index} model={{ type: nodeClass.name }} name={nodeClass.name} color="#008080"/>
     ));
   }
 
@@ -130,10 +130,10 @@ export class InventoryPanel extends React.Component {
           </Grid>
 
           {/* Display */}
-          <Grid id="Display" item xs={8}>
-          <Paper style={{ height: '100%', padding: '0px' }} elevation={2} square>
+          <Grid id="Display" item xs={8} padding= '0px 0px'>
+          <Paper style={{ height: '100%', padding: '0px'}} elevation={2} square>
               {/* Tray with items */}
-              <div className="tray-items">{this.renderTrayItems()}</div>
+              <div style={{ padding: "30px 0px"}} className="tray-items">{this.renderTrayItems()}</div>
           </Paper>
           </Grid>
       </Grid>
