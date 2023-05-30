@@ -28,12 +28,11 @@
 // - Ensure SyntaxHighlighter has some way of wrapping long lines of text.
 // - Ensure SyntaxHighlighter shows line numbers.
 import React, { createContext } from 'react';
-import { Dialog, IconButton, DialogContent } from '@mui/material';
+import { Dialog, IconButton, DialogContent, Box, Typography } from '@mui/material';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
 import { solarizedLight, a11yDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
-import { Box } from '@mui/material';
 
 
 SyntaxHighlighter.registerLanguage('python', python);
@@ -53,13 +52,18 @@ export const S = {
         alignItems: 'center',
         paddingRight: '20px',
     },
-    copyArea: {
+    copyButton: {
         display: 'flex',
         alignItems: 'center',
         color: 'white',
+        width: '120px', // increased width to accommodate nowrap text and icon
+        justifyContent: 'center',
+        borderRadius: '5px',
+        padding: '6px 16px', // for MUI default button padding
     },
-    copyIcon: {
-        color: 'white',
+    copyText: {
+        marginRight: '5px',
+        whiteSpace: 'nowrap', // prevents the text from wrapping
     },
     codeContainer: {
         maxHeight: "500px",
@@ -92,12 +96,12 @@ export class CodeSnippetWindow extends React.Component {
         return (
             <Dialog open={isOpen} onClose={closeDialog} PaperProps={{ style: S.dialogPaper }}>
             <div style={S.headerArea}>
-              <div style={S.copyArea}>
-                <IconButton onClick={this.handleCopy} style={S.copyIcon}>
-                  <FileCopyIcon />
+                <IconButton onClick={this.handleCopy} style={S.copyButton}>
+                    <Typography variant="button" style={S.copyText}>
+                    Copy Code
+                    </Typography>
+                    <FileCopyIcon />
                 </IconButton>
-                <span>Copy Code</span>
-              </div>
             </div>
             <DialogContent>
               <Box sx={S.codeContainer}>

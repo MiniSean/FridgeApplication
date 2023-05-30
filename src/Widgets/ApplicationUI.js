@@ -209,7 +209,7 @@ export class WorkspacePanel extends React.Component {
 
             <CodeSnippetContext.Provider value={{ isOpen, openDialog: this.openDialog, closeDialog: this.closeDialog }}>
               {/* Popup Code Snippet Window */}
-              <CodeSnippetWindow codeSnippet={"print('Hello... world... This is a very long piece of string to be printed.')"}/>
+              <CodeSnippetWindow codeSnippet={"print('Hello... world... ')"}/>
 
               {/* Right Toolbar */}
               <WorkspaceToolbar app={this.props.app} isExpanded={isExpanded}/>
