@@ -73,7 +73,8 @@ const S = {
     }),
 
     TitleInput: styled(styleDict.TitleInput)({
-        maxWidth: '60px'
+        maxWidth: '60px',
+        textAlign: 'right',
     }),
 
     PortsContainer: styled(styleDict.PortsContainer)((p) => ({
