@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 // import { remote } from 'electron';
 // import { writeFile as fsWriteFile, readFile as fsReadFile } from 'fs/promises';
 import { AppBar, Toolbar, Button, Tabs, Tab, Box, Grid, Paper, IconButton, Collapse } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Settings, Download, Upload, NoteAdd, Folder, ToggleOnOutlined, ToggleOff, ContentCopy, Clear } from '@mui/icons-material';
+import { Settings, Download, Upload, NoteAdd, DataObject, Folder, ToggleOnOutlined, ToggleOff, ContentCopy, Clear } from '@mui/icons-material';
 import { experimentalStyled } from '@mui/material/styles';
 import _ from 'lodash';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
 import { TrayItemWidget } from './DragAndDropMenu/TrayItemWidget';
 import { DemoCanvasWidget } from './CanvasWidget';
+import { CodeSnippetWindow, CodeSnippetContext } from './CodeSnippedPopup/SnippedWindow';
 import { Application } from './ApplicationWidget';
 import { Collection } from '../CustomNode/NodeCollection';
 
@@ -87,6 +88,7 @@ export class CustomAppBar extends React.Component {
 export class MainContent extends React.Component {
 
     render() {
+
       return (
         <Grid id="MainContent" container sx={{ height: 'calc(100vh - 64px)' }}>
 
@@ -145,6 +147,7 @@ export class WorkspacePanel extends React.Component {
         super(props);
         this.state = {
           isExpanded: true,
+          isOpen: false,
         };
       }
     
@@ -183,8 +186,16 @@ export class WorkspacePanel extends React.Component {
         event.preventDefault();
     };
 
+    openDialog = () => {
+      this.setState({ isOpen: true });
+    };
+  
+    closeDialog = () => {
+      this.setState({ isOpen: false });
+    };
+
     render() {
-        const { isExpanded } = this.state;
+        const { isExpanded, isOpen } = this.state;
 
       return (
         <Grid item xs={9}>
@@ -196,8 +207,13 @@ export class WorkspacePanel extends React.Component {
               </DemoCanvasWidget>
             </div>
 
-            {/* Right Toolbar */}
-            <WorkspaceToolbar app={this.props.app} isExpanded={isExpanded}/>
+            <CodeSnippetContext.Provider value={{ isOpen, openDialog: this.openDialog, closeDialog: this.closeDialog }}>
+              {/* Popup Code Snippet Window */}
+              <CodeSnippetWindow codeSnippet={"print('Hello world')"}/>
+
+              {/* Right Toolbar */}
+              <WorkspaceToolbar app={this.props.app} isExpanded={isExpanded}/>
+            </CodeSnippetContext.Provider>
 
             {/* Toggle Button */}
             <IconButton
@@ -219,6 +235,8 @@ WorkspacePanel.propTypes = {
 };
 
 export class WorkspaceToolbar extends React.Component {
+  static contextType = CodeSnippetContext;  // Code snippet context
+
   /**
    * Handle the export button click.
    * Serializes the model and prompts the user to save the serialized JSON to a file.
@@ -301,6 +319,8 @@ export class WorkspaceToolbar extends React.Component {
   };
 
   render() {
+    const { openDialog } = this.context;
+
     return (
       <Collapse id="Workspace Collapsable" in={this.props.isExpanded} collapsedWidth={64} timeout="auto" unmountOnExit>
       <AppBar id="Toolbar" position="absolute" style={{ right: 0, top: '10%', bottom: '20%', width: 64, zIndex: 2 }}>
@@ -317,6 +337,9 @@ export class WorkspaceToolbar extends React.Component {
           <IconButton color="inherit" aria-label="Copy" title="Copy">
               <ContentCopy />
           </IconButton>
+          <IconButton color="inherit" aria-label="Copy" title="Config" onClick={openDialog}>
+              <DataObject />
+          </IconButton>
           <IconButton color="inherit" aria-label="Delete" title="Delete">
               <Clear />
           </IconButton>
@@ -330,7 +353,9 @@ export class WorkspaceToolbar extends React.Component {
   }
 }
 WorkspaceToolbar.propTypes = {
+  app: Application,
   isExpanded: Boolean,
+  snippedWindow: CodeSnippetWindow,
 };
 
 export const App = () => {
