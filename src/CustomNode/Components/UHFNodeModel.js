@@ -8,7 +8,7 @@ import {
 export class UHFNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'uhf-node',
+            // type: 'uhf-node',
             name: '',
             nameHighlight: 'UHFQA',
             color: '#fff',

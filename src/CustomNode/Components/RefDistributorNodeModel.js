@@ -8,7 +8,7 @@ import {
 export class RefDistributorNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'refdist-node',
+            // type: 'refdist-node',
             name: 'Reference Distribution Module',
             nameHighlight: 'RDM',
             color: 'gray',

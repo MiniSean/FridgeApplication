@@ -9,7 +9,7 @@ import { MyCustomPortModel } from '../DescriptivePortModel';
 export class MixerNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'mixer-node',
+            // type: 'mixer-node',
             name: '',
             nameHighlight: 'MXR',
             color: 'grey',

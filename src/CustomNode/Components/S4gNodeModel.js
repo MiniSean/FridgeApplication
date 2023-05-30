@@ -8,7 +8,7 @@ import {
 export class S4gNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 's4g-node',
+            // type: 's4g-node',
             name: 'S4g Module',
             nameHighlight: 'S4G',
             color: 'grey',

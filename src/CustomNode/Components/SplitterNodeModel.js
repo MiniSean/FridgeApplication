@@ -8,7 +8,7 @@ import {
 export class Splitter2NodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'splitter2-node',
+            // type: 'splitter2-node',
             name: '',
             nameHighlight: 'SPLT',
             color: 'grey',
@@ -42,7 +42,7 @@ export class Splitter2NodeModel extends DescriptiveNodeModel {
 export class Splitter4NodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'splitter4-node',
+            // type: 'splitter4-node',
             nameMain: '',
             nameHighlight: 'SPLT',
             colorMain: 'grey',

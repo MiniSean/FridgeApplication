@@ -8,7 +8,7 @@ import {
 export class BiasTNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'biast-node',
+            // type: 'biast-node',
             name: '',
             nameHighlight: 'BiasT',
             color: 'grey',

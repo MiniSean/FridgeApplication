@@ -8,7 +8,7 @@ import {
 export class FeedlineNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'feedline-node',
+            // type: 'feedline-node',
             name: '',
             nameHighlight: 'FL',
             color: 'grey',

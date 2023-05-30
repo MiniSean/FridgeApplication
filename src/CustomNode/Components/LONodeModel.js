@@ -8,7 +8,7 @@ import {
 export class LONodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'lo-node',
+            // type: 'lo-node',
             name: '',
             nameHighlight: 'LO',
             color: 'rgb(21, 93, 209)',

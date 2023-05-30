@@ -8,7 +8,7 @@ import {
 export class HDAWGNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'hdawg-node',
+            // type: 'hdawg-node',
             name: '',
             nameHighlight: 'HDAWG',
             color: '#fff',

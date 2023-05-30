@@ -8,7 +8,7 @@ import {
 export class TransmonNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
-            type: 'transmon-node',
+            // type: 'transmon-node',
             name: 'Transmon Interface',
             nameHighlight: 'Q',
             color: 'rgb(199, 44, 196)',
