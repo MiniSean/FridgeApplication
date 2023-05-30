@@ -8,6 +8,7 @@ import { FeedlineNodeModel } from './Components/FeedlineNodeModel';
 import { RefDistributorNodeModel } from './Components/RefDistributorNodeModel';
 import { S4gNodeModel } from './Components/S4gNodeModel';
 import { TransmonNodeModel } from './Components/TransmonNodeModel';
+import { AttenuationNodeModel } from './Components/AttenuationNodeModel';
 
 export class Collection {
     constructor() {
@@ -24,6 +25,7 @@ export class Collection {
         this.addNode(RefDistributorNodeModel);
         this.addNode(S4gNodeModel);
         this.addNode(TransmonNodeModel);
+        this.addNode(AttenuationNodeModel);
         // Add more NodeModel classes as needed
     }
 

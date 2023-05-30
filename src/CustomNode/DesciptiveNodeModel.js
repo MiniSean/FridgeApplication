@@ -6,18 +6,9 @@
 // - Create the corresponding CustomNodeFactory and give a comment in the code on where to use these.
 // - Create the corresponding CustomNodeWidget and give a comment in the code on where to use these.
 // - Make sure to specify where to register the RightAngleLinkFactory and CustomNodeFactory to the engine.
-import { 
-   NodeModel,
-   NodeWidget,
+import {
    DefaultNodeModel,
-   DefaultPortModel, 
-   DefaultLinkModel,
-   DefaultPortLabel,
-   DiagramEngine,
-   DefaultNodeWidget,
-   DefaultLinkWidget,
-   DefaultNodeFactory,
-   DefaultLinkFactory,
+   DefaultPortModel,
    RightAngleLinkModel,
 } from '@projectstorm/react-diagrams';
 import * as React from 'react';
@@ -41,10 +32,10 @@ export class DescriptiveNodeModel extends DefaultNodeModel {
       } = props;
 
       const defaultProps = {
-         ...otherProps,
          type: 'descriptive-node',
          name: name,
          color: color, // Color for the entire node
+         ...otherProps,
       };
       super(defaultProps);
       this.nameHighlight = nameHighlight;
@@ -125,7 +116,7 @@ export class DescriptiveNodeFactory extends AbstractReactFactory {
 
 // Custom Widgets //
 
-const S = {
+export const S = {
    Node: styled.div((p) => ({
      backgroundColor: 'transparent',
      borderRadius: '5px',
@@ -198,9 +189,9 @@ const S = {
       ...(p.type === 'in' && { textAlign: 'left' }), // Added text alignment for PortsInContainer
       ...(p.type === 'out' && { textAlign: 'right' }), // Added text alignment for PortsOutContainer
    })),
- };
+};
 
-class TitleInputComponent extends React.Component {
+export class TitleInputComponent extends React.Component {
 
    handleInputChange = (event) => {
       const { node } = this.props;

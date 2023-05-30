@@ -13,9 +13,12 @@
 // Your assignment:
 // - Create a boilerplate port label based on the DefaultPortLabel (from react-diagram library).
 // - Change the part of the port label that is used to connect links (edges) to display as an open circle. Once a link is created, the displayed circle should be closed.
+// - Ensure the link starts at the center of the circle.
+// - Ensure the circle is drawn on the same verticle height as the label text.
+// - Ensure the circle if drawn left of the label text if the port alignment equals 'LEFT' and draw it right of the label text if the port aligment equals 'RIGHT'.
 import React from 'react';
 import { DefaultPortModel, PortWidget } from '@projectstorm/react-diagrams';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 // Style for the circle
 const PortCircle = styled.div`
