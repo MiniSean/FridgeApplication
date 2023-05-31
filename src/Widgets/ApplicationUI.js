@@ -188,6 +188,8 @@ export class WorkspacePanel extends React.Component {
 
     openDialog = () => {
       this.setState({ isOpen: true });
+      // Perform construction of code snippet based on application.
+      // Update codeSnippet to display.
     };
   
     closeDialog = () => {

@@ -57,7 +57,11 @@ export class MiniNodeFactory extends AbstractReactFactory {
 }
  
  // Custom Widgets //
- 
+
+export const iconType = Object.freeze({
+  LowPassFilter: 'lowpassIcon',
+})
+
 const S = {
     ...styleDict,
     // Extends style dict
@@ -119,6 +123,15 @@ class NumericInputComponent extends TitleInputComponent {
          />
        );
     }
+
+    renderSwitch(param) {
+      switch(param) {
+        // case iconType.LowPassFilter:
+        //   return <LowPassFilterIcon/>;
+        default:
+          return <S.IconText>{param}</S.IconText>;
+      }
+    };
  
     render() {
        const nodeOptions = this.props.node.getOptions();
@@ -134,7 +147,7 @@ class NumericInputComponent extends TitleInputComponent {
                    {_.map(this.props.node.getInPorts(), this.generatePort.bind(this))}
                 </S.PortsContainer>
                 <S.Icon color={this.props.node.colorHighlight}>
-                   <S.IconText>{this.props.node.nameHighlight}</S.IconText>
+                   {this.renderSwitch(this.props.node.nameHighlight)}
                 </S.Icon>
                 <S.Title>
                    <NumericInputComponent node={this.props.node} onChange={this.handleInputChange} />
