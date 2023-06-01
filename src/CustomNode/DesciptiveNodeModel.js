@@ -16,6 +16,7 @@ import * as _ from 'lodash';
 import { AbstractReactFactory } from '@projectstorm/react-canvas-core';
 import styled from '@emotion/styled';
 import { Settings } from '@mui/icons-material';
+import { calculateBrightness } from '../UtilityFunctions/ColorBrightness';
 import { MyCustomPortLabel } from './DescriptivePortLabel';
 
 // Custom Models //
@@ -163,16 +164,17 @@ export const S = {
      padding: '5px 20px',
    }),
 
-   TitleInput: styled.input({
+   TitleInput: styled.input((p) => ({
       flexGrow: 1,
       padding: '2px',
       border: 'none',
       outline: 'none',
       background: 'transparent',
-      color: 'white',
+      color: p.textColor,
+      fontWeight: 'bold',
       fontSize: '14px',
       textAlign: 'center',
-    }),
+    })),
  
    Ports: styled.div({
      display: 'flex',
@@ -220,6 +222,7 @@ export class TitleInputComponent extends React.Component {
          onKeyDown={this.handleKeyDown}
          onChange={this.handleInputChange}
          value={this.props.node.titleName}
+         textColor={this.props.textColor}
          // {...this.props}
          />
       );
@@ -242,6 +245,8 @@ export class DescriptiveNodeWidget extends React.Component {
 
    render() {
       const nodeOptions = this.props.node.getOptions();
+      const backgroundColor = nodeOptions.color;
+      const inputTextColor = calculateBrightness(nodeOptions.color) > 0.5? 'black' : 'white';
     
       return (
         <S.Node
@@ -249,12 +254,12 @@ export class DescriptiveNodeWidget extends React.Component {
           selected={this.props.node.isSelected()}
           background={nodeOptions.color}
         >
-            <S.Header background={nodeOptions.color}>
+            <S.Header background={backgroundColor}>
                <S.Icon color={this.props.node.colorHighlight}>
                   <S.IconText>{this.props.node.nameHighlight}</S.IconText>
                </S.Icon>
                <S.Title>
-                  <TitleInputComponent node={this.props.node} onChange={this.handleInputChange} />
+                  <TitleInputComponent node={this.props.node} onChange={this.handleInputChange} textColor={inputTextColor}/>
                </S.Title>
                {/* <S.Icon color={this.props.node.colorHighlight}>
                   <Settings/>
