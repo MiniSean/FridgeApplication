@@ -407,8 +407,10 @@ export class WorkspaceToolbar extends React.Component {
     const workspaceElement = document.getElementById('Workspace Content'); // Replace 'Workspace Content' with the ID of the wrapper element for the workspace
     const nodes = engine.getModel().getNodes();
     const bbox = this.getBoundingBox(nodes);
+    const bboxWidth = Math.abs(bbox.x2 - bbox.x);
+    const bboxHeight = Math.abs(bbox.y2 - bbox.y);
 
-    const pdfDoc = new jsPDF('p', 'pt', 'a4');
+    const pdfDoc = new jsPDF({orientation: 'landscape', unit: 'pt', format: 'a4'});
     const pdfPageWidth = pdfDoc.internal.pageSize.getWidth();
     const pdfPageHeight = pdfDoc.internal.pageSize.getHeight();
 
@@ -447,7 +449,9 @@ export class WorkspaceToolbar extends React.Component {
     // Convert the workspace element to an image
     toPng(workspaceElement).then((dataUrl) => {
         // Add the image to the PDF document
-        pdfDoc.addImage(dataUrl, 'svg', 0, 0);
+        // pdfDoc.addImage(dataUrl, 'png', 0, 0);
+        pdfDoc.addImage(dataUrl, 'png', 0, 0);
+        // pdfDoc.addImage(dataUrl, 'png', bbox.x, bbox.y, bboxWidth, bboxHeight);
 
         // Save the PDF file
         pdfDoc.save('diagram.pdf');
