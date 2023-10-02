@@ -10,7 +10,8 @@ import { S4gNodeModel } from './Components/S4gNodeModel';
 import { TransmonNodeModel } from './Components/TransmonNodeModel';
 import { AttenuationNodeModel } from './Components/AttenuationNodeModel';
 import { FilterNodeModel } from './Components/FilterNodeModel';
-import { DirectionalCouplerModel } from './Components/DirectionalCoupler';
+import { DirectionalCouplerNodeModel } from './Components/DirectionalCouplerNodeModel';
+import { SignalHoundNodeModel } from './Components/SignalHoundNodeModel';
 
 export class Collection {
     constructor() {
@@ -24,7 +25,8 @@ export class Collection {
         this.addNode(Splitter4NodeModel);
         this.addNode(Splitter2InvertedNodeModel);
         this.addNode(Splitter4InvertedNodeModel);
-        this.addNode(DirectionalCouplerModel);
+        this.addNode(DirectionalCouplerNodeModel);
+        this.addNode(SignalHoundNodeModel);
         this.addNode(BiasTNodeModel);
         this.addNode(FeedlineNodeModel);
         this.addNode(RefDistributorNodeModel);

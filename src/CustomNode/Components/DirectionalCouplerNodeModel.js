@@ -5,14 +5,14 @@ import {
     DescriptiveNodeModel,
 } from "../DesciptiveNodeModel";
 
-export class DirectionalCouplerModel extends DescriptiveNodeModel {
+export class DirectionalCouplerNodeModel extends DescriptiveNodeModel {
     constructor() {
         super({
             // type: 'directionalcoupler-node',
             name: '',
             nameHighlight: 'DIR',
-            color: 'cobalt',
-            colorHighlight: 'grey',
+            color: 'grey',
+            colorHighlight: 'royalblue',
         });
 
         this.addPort(new DefaultPortModel({

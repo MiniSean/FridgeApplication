@@ -132,7 +132,7 @@ export class Splitter4InvertedNodeModel extends DescriptiveNodeModel {
         });
 
         this.addPort(new DefaultPortModel({
-            in: true,
+            in: false,
             name: 'Output',
             label: 'Out',
             maximumLinks: 1,
