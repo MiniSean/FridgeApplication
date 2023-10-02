@@ -1,6 +1,6 @@
 import { BiasTNodeModel } from './Components/BiasTNodeModel';
 import { UHFNodeModel } from './Components/UHFNodeModel';
-import { Splitter2NodeModel, Splitter4NodeModel } from './Components/SplitterNodeModel';
+import { Splitter2NodeModel, Splitter4NodeModel, Splitter2InvertedNodeModel, Splitter4InvertedNodeModel } from './Components/SplitterNodeModel';
 import { MixerNodeModel } from './Components/MixerNodeModel';
 import { LONodeModel } from './Components/LONodeModel';
 import { HDAWGNodeModel } from './Components/HDAWGNodeModel';
@@ -10,6 +10,7 @@ import { S4gNodeModel } from './Components/S4gNodeModel';
 import { TransmonNodeModel } from './Components/TransmonNodeModel';
 import { AttenuationNodeModel } from './Components/AttenuationNodeModel';
 import { FilterNodeModel } from './Components/FilterNodeModel';
+import { DirectionalCouplerModel } from './Components/DirectionalCoupler';
 
 export class Collection {
     constructor() {
@@ -21,6 +22,9 @@ export class Collection {
         this.addNode(MixerNodeModel);
         this.addNode(Splitter2NodeModel);
         this.addNode(Splitter4NodeModel);
+        this.addNode(Splitter2InvertedNodeModel);
+        this.addNode(Splitter4InvertedNodeModel);
+        this.addNode(DirectionalCouplerModel);
         this.addNode(BiasTNodeModel);
         this.addNode(FeedlineNodeModel);
         this.addNode(RefDistributorNodeModel);

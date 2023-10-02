@@ -86,3 +86,85 @@ export class Splitter4NodeModel extends DescriptiveNodeModel {
         }));
     }
 }
+
+export class Splitter2InvertedNodeModel extends DescriptiveNodeModel {
+    constructor() {
+        super({
+            // type: 'splitter2-inversed-node',
+            name: '',
+            nameHighlight: 'SPLT',
+            color: 'grey',
+            colorHighlight: 'darkgrey',
+        });
+
+        this.addPort(new DefaultPortModel({
+            in: false,
+            name: 'Output',
+            label: 'Out',
+            maximumLinks: 1,
+            canLinkPort: true,
+        }));
+        this.addPort(new DefaultPortModel({
+            in: true,
+            name: 'Input1',
+            label: '1-In',
+            maximumLinks: 1,
+            canLinkPort: true,
+        }));
+        this.addPort(new DefaultPortModel({
+            in: true,
+            name: 'Input2',
+            label: '2-In',
+            maximumLinks: 1,
+            canLinkPort: true,
+        }));
+    }
+}
+
+export class Splitter4InvertedNodeModel extends DescriptiveNodeModel {
+    constructor() {
+        super({
+            // type: 'splitter4-inverted-node',
+            nameMain: '',
+            nameHighlight: 'SPLT',
+            colorMain: 'grey',
+            colorHighlight: 'darkgrey',
+        });
+
+        this.addPort(new DefaultPortModel({
+            in: true,
+            name: 'Output',
+            label: 'Out',
+            maximumLinks: 1,
+            canLinkPort: true,
+        }));
+        this.addPort(new DefaultPortModel({
+            in: true,
+            name: 'Input1',
+            label: '1-In',
+            maximumLinks: 1,
+            canLinkPort: true,
+        }));
+        this.addPort(new DefaultPortModel({
+            in: true,
+            name: 'Input2',
+            label: '2-In',
+            maximumLinks: 1,
+            canLinkPort: true,
+        }));
+        this.addPort(new DefaultPortModel({
+            in: true,
+            name: 'Input3',
+            label: '3-In',
+            maximumLinks: 1,
+            canLinkPort: true,
+        }));
+        this.addPort(new DefaultPortModel({
+            in: true,
+            name: 'Input4',
+            label: '4-In',
+            maximumLinks: 1,
+            canLinkPort: true,
+        }));
+    }
+}
