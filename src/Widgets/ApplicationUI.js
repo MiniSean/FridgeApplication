@@ -50,7 +50,7 @@ import React, { useContext, useState } from 'react';
 // import { writeFile as fsWriteFile, readFile as fsReadFile } from 'fs/promises';
 import { AppBar, Toolbar, Button, Tabs, Tab, Box, Grid, Paper, IconButton, Collapse } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Settings, Download, Upload, NoteAdd, DataObject, Folder, ToggleOnOutlined, ToggleOff, ContentCopy, Clear } from '@mui/icons-material';
+import { Settings, Download, Upload, NoteAdd, DataObject, PictureAsPdf, Folder, ToggleOnOutlined, ToggleOff, ContentCopy, Clear } from '@mui/icons-material';
 import { experimentalStyled } from '@mui/material/styles';
 import _ from 'lodash';
 import { saveAs } from 'file-saver';
@@ -261,7 +261,7 @@ export class WorkspacePanel extends React.Component {
 
             <CodeSnippetContext.Provider value={{ isOpen, openDialog: this.openDialog, closeDialog: this.closeDialog }}>
               {/* Popup Code Snippet Window */}
-              <CodeSnippetWindow codeSnippet={"print('Hello... world... ')"}/>
+              <CodeSnippetWindow codeSnippet={"# This will be a compiled init-script,\n# based on the specified connectivity\nprint('Hello world')"}/>
 
               {/* Right Toolbar */}
               <WorkspaceToolbar app={this.props.app} isExpanded={isExpanded}/>
@@ -484,7 +484,7 @@ export class WorkspaceToolbar extends React.Component {
               <DataObject />
           </IconButton>
           <IconButton color="inherit" aria-label="Copy" title="Export to PDF" onClick={this.handleExportPDF}>
-              <Upload />
+              <PictureAsPdf />
           </IconButton>
           <IconButton color="inherit" aria-label="Delete" title="Delete">
               <Clear />
